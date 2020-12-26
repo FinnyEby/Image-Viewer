@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import {Link} from 'react-router-dom';
 
 class Login extends Component {
 
@@ -19,7 +20,7 @@ class Login extends Component {
             password: "",
             usernameRequired: "dispNone",
             passwordRequired: "dispNone",
-            userValidated: "dispNone"
+            userInfoIncorrect: "dispNone"
         }
     }
 
@@ -36,15 +37,14 @@ class Login extends Component {
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
         let loginUsername = "user123"
         let loginPassword = "passcode"
-        this.state.username && this.state.password ? 
-        (this.state.username !== loginUsername || this.state.password !== loginPassword ? this.setState({userValidated: "dispBlock" }) : this.setState({ userValidated: "dispNone" })) : 
-        this.setState({ userValidated: "dispNone" })
+        this.state.username && this.state.password ?
+            (this.state.username !== loginUsername || this.state.password !== loginPassword ? this.setState({ userInfoIncorrect: "dispBlock" }) : this.setState({ userInfoIncorrect: "dispNone"})) :
+            this.setState({ userInfoIncorrect: "dispNone" })
     }
 
-    execLater = () => {
-        console.log(this.state.passwordRequired)
-    }
     render() {
+        let loginUsername = "user123"
+        let loginPassword = "passcode"
         return (
             <div>
                 <Header />
@@ -66,10 +66,12 @@ class Login extends Component {
                                     <span className="red unselectable">required</span>
                                 </FormHelperText>
                             </FormControl><br /><br />
-                            <FormHelperText className={this.state.userValidated}>
+                            <FormHelperText className={this.state.userInfoIncorrect}>
                                 <span className="red unselectable">Incorrect username and/or password</span>
                             </FormHelperText><br />
-                            <Button variant="contained" color="primary" onClick={this.loginHandler}>LOGIN</Button>
+                            <Link style={{textDecoration:'none'}} to={(this.state.username === loginUsername && this.state.password === loginPassword) ? "/home" : "/"}>
+                                <Button variant="contained" color="primary" onClick={this.loginHandler}>LOGIN</Button>
+                            </Link>
                         </CardContent>
                     </Card>
                 </div>
