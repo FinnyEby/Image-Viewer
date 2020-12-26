@@ -1,0 +1,9 @@
+.cardStyle {
+    margin: auto;
+    margin-top: 20px;
+    width: 350px;
+    padding: 20px;
+}
+.formControl {
+    width: 80%;
+}
