@@ -7,15 +7,7 @@
     color: #fff;
     font-size: 18px;
 }
-br{
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;    
-}
-.unselectable {
+br, .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
