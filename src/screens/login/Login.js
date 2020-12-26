@@ -43,19 +43,19 @@ class Login extends Component {
                 <div>
                     <Card className="cardStyle">
                         <CardContent>
-                            <Typography variant="headline" component="h2">LOGIN</Typography><br />
+                            <Typography className="unselectable" variant="headline" component="h2">LOGIN</Typography><br />
                             <FormControl required className="formControl">
-                                <InputLabel htmlFor="username">Username</InputLabel>
+                                <InputLabel className="unselectable" htmlFor="username">Username</InputLabel>
                                 <Input id="username" type="text" onChange={this.usernameChangeHandler} />
                                 <FormHelperText className={this.state.usernameRequired}>
-                                    <span className="red">required</span>
+                                    <span className="red unselectable">required</span>
                                 </FormHelperText>
                             </FormControl><br /><br />
                             <FormControl required className="formControl">
-                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <InputLabel className="unselectable" htmlFor="password">Password</InputLabel>
                                 <Input id="password" type="password" onChange={this.passwordChangeHandler} />
                                 <FormHelperText className={this.state.passwordRequired}>
-                                    <span className="red">required</span>
+                                    <span className="red unselectable">required</span>
                                 </FormHelperText>
                             </FormControl><br /><br />
                             <Button variant="contained" color="primary" onClick={this.loginHandler}>LOGIN</Button>
