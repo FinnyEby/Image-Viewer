@@ -5,7 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import SearchIcon from '@material-ui/icons/Search';
 import Input from '@material-ui/core/Input';
-import img from '../../assets/finn.png'
+import img from '../../assets/finn.png';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +46,7 @@ const Header = (props) => {
                             onClose={handleClose}
                         >
                             <MenuItem component={Link} to={"/profile"} onClick={handleClose}>My Account</MenuItem>
-                            <hr />
+                            <hr className="menuItemSeperator"/>
                             <MenuItem onClick={handleClose}>Logout</MenuItem>
                         </Menu>
                     </div>}

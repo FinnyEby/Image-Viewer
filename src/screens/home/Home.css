@@ -1,3 +1,50 @@
-.home {
-    text-align: center;
+.homeMain {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.cardStyle {
+    font-size: 15px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+.image {
+    height: 500px;
+    width: auto;
+}
+.likeSection {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: baseline;
+}
+.likeButton {
+    margin-right: 10px;
+}
+.tags {
+    color: #0095f6;
+}
+.addComment {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    justify-content: baseline;
+    align-items: center;
+}
+.addButton {
+    margin: 10px;
+    height: 35px;
+}
+.commentInput {
+    width: 80%;
+}
+.bold {
+    font-weight: bold;
+    margin-right: 5px;
+}
+.comments {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
