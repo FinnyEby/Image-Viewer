@@ -38,3 +38,7 @@ br, .unselectable {
 .searchIcon {
     padding: 3%;
 }
+hr {
+    width: 70%;
+    align-self: center;
+}
