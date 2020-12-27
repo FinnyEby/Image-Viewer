@@ -20,7 +20,9 @@ class Login extends Component {
             password: "",
             usernameRequired: "dispNone",
             passwordRequired: "dispNone",
-            userInfoIncorrect: "dispNone"
+            userInfoIncorrect: "dispNone",
+            expectedUsername: "user123",
+            expectedPassword: "passcode"
         }
     }
 
@@ -35,16 +37,13 @@ class Login extends Component {
     loginHandler = () => {
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" })
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
-        let loginUsername = "user123"
-        let loginPassword = "passcode"
         this.state.username && this.state.password ?
-            (this.state.username !== loginUsername || this.state.password !== loginPassword ? this.setState({ userInfoIncorrect: "dispBlock" }) : this.setState({ userInfoIncorrect: "dispNone"})) :
+            (this.state.username !== this.state.expectedUsername || this.state.password !== this.state.expectedPassword) ? 
+                this.setState({ userInfoIncorrect: "dispBlock" }) : this.setState({ userInfoIncorrect: "dispNone"}) :
             this.setState({ userInfoIncorrect: "dispNone" })
     }
 
     render() {
-        let loginUsername = "user123"
-        let loginPassword = "passcode"
         return (
             <div>
                 <Header />
@@ -69,7 +68,7 @@ class Login extends Component {
                             <FormHelperText className={this.state.userInfoIncorrect}>
                                 <span className="red unselectable">Incorrect username and/or password</span>
                             </FormHelperText><br />
-                            <Link style={{textDecoration:'none'}} to={(this.state.username === loginUsername && this.state.password === loginPassword) ? "/home" : "/"}>
+                            <Link style={{textDecoration:'none'}} to={(this.state.username === this.state.expectedUsername && this.state.password === this.state.expectedPassword) ? "/home" : "/"}>
                                 <Button variant="contained" color="primary" onClick={this.loginHandler}>LOGIN</Button>
                             </Link>
                         </CardContent>

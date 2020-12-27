@@ -7,6 +7,11 @@
     color: #fff;
     font-size: 18px;
 }
+.loggedUser {
+    float: right;
+    display: flex;
+    background-color: #c0c0c0;
+}
 br, .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
