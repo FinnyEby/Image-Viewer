@@ -6,13 +6,13 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import img from '../../assets/finn.png';
 import img2 from '../../assets/bird.jpeg';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
-import { Input } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 class Home extends Component {
     constructor() {
@@ -27,7 +27,8 @@ class Home extends Component {
                 timestamp: "2008-07-18T00:00:00+05:30",
                 liked: true,
                 likeCounter: 7,
-                comment: "new comment"
+                comments: [],
+                comment: ""
             }
         }
     }
@@ -72,8 +73,23 @@ class Home extends Component {
         this.setState(tempPost)
     }
 
-    render() {
+    commentChangeHandler = (e) => {
+        let tempComment = this.state.post
+        tempComment.comment = e.target.value
+        this.setState({tempComment})
+    }
 
+    addCommentHandler = () => {
+        let temp = this.state.post.comments
+        temp.push(this.state.post.comment)
+        this.setState(temp)
+        let tempComment = this.state.post
+        tempComment.comment = ""
+        this.setState({tempComment})
+    }
+
+    render() {
+        let temp = 0
         return (
             <div>
                 <Header dispalySearchBar={true} displayUserProfileIcon={true} />
@@ -89,32 +105,41 @@ class Home extends Component {
                             </div>
                             <div className="cardContent">
                                 <CardContent>
-                                    <img className="image" src={img2} alt={this.state.post.caption} />
-                                    < hr/>
+                                    <div className="imgSection">
+                                        <img className="image" src={img2} alt={this.state.post.caption} />
+                                    </div>
+                                    < hr />
                                     <div className="postDetails">
                                         <div className="caption">{this.state.post.caption}</div>
                                         <div className="tags">#Tag1 #Tag2 #Tag3</div>
                                     </div>
                                     <div className="likeSection">
-                                        {this.state.post.liked ? <FavoriteBorderIcon className="likeButton" onClick={this.likeClickhandler} /> : 
-                                        <Favorite  style={{color: "red"}} className="likeButton" onClick={this.likeClickhandler}/> }
+                                        {this.state.post.liked ? <FavoriteBorderIcon className="likeButton" onClick={this.likeClickhandler} /> :
+                                            <Favorite style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} />}
                                         <span>{this.state.post.likeCounter} likes</span>
                                     </div>
                                     <div className="commentSection">
-                                        <div id="comments" className="comments">
-                                            <div>
-                                                <span className="bold">{this.state.post.username}:</span>
-                                                <span>Dummy comment</span>
+                                        <div>
+                                            <div id="comments" className="comments">
+                                                <div>
+                                                    {this.state.post.comments.map(comment => {
+                                                        temp++
+                                                        return <div key={temp}>
+                                                            <span className="bold">FinnyEbby:</span>
+                                                            <span>{comment}</span>
+                                                        </div>
+                                                    })}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="addComment">
-                                            <FormControl className="commentInput" >
-                                                <InputLabel htmlFor="commentTextBox">Add a comment</InputLabel>
-                                                <Input id="commentTextBox" type="text" />
-                                            </FormControl>
-                                            <Button className="addButton" variant="contained" color="primary" >
-                                                ADD
-                                            </Button>
+                                            <div className="addComment">
+                                                <FormControl className="commentInput" >
+                                                    <InputLabel htmlFor="commentTextBox">Add a comment</InputLabel>
+                                                    <Input id="commentTextBox" type="text" value={this.state.post.comment} onChange={this.commentChangeHandler} />
+                                                </FormControl>
+                                                <Button className="addButton" variant="contained" color="primary" onClick={this.addCommentHandler}>
+                                                    ADD
+                                                </Button>
+                                            </div>
                                         </div>
                                     </div>
                                 </CardContent>
