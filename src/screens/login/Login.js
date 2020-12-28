@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
 
@@ -22,7 +22,8 @@ class Login extends Component {
             passwordRequired: "dispNone",
             userInfoIncorrect: "dispNone",
             expectedUsername: "user123",
-            expectedPassword: "passcode"
+            expectedPassword: "passcode",
+            loginClicked: false
         }
     }
 
@@ -37,10 +38,19 @@ class Login extends Component {
     loginHandler = () => {
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" })
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
-        this.state.username && this.state.password ?
-            (this.state.username !== this.state.expectedUsername || this.state.password !== this.state.expectedPassword) ? 
-                this.setState({ userInfoIncorrect: "dispBlock" }) : this.setState({ userInfoIncorrect: "dispNone"}) :
-            this.setState({ userInfoIncorrect: "dispNone" })
+        if(this.state.username && this.state.password) {
+            (this.state.username !== this.state.expectedUsername || this.state.password !== this.state.expectedPassword) ?
+            this.setState({ userInfoIncorrect: "dispBlock" }) :
+            sessionStorage.setItem("access-token", this.props.accessToken)
+        }
+    }
+
+    loginPassHandler = () => {
+        return "/home"
+    }
+
+    loginFailHandler = () => {
+        return "/"
     }
 
     render() {
@@ -68,7 +78,7 @@ class Login extends Component {
                             <FormHelperText className={this.state.userInfoIncorrect}>
                                 <span className="red unselectable">Incorrect username and/or password</span>
                             </FormHelperText><br />
-                            <Link style={{textDecoration:'none'}} to={(this.state.username === this.state.expectedUsername && this.state.password === this.state.expectedPassword) ? "/home" : "/"}>
+                            <Link style={{ textDecoration: 'none' }} to={(this.state.username === this.state.expectedUsername && this.state.password === this.state.expectedPassword) ? "/home" : "/"}>
                                 <Button variant="contained" color="primary" onClick={this.loginHandler}>LOGIN</Button>
                             </Link>
                         </CardContent>

@@ -5,7 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import SearchIcon from '@material-ui/icons/Search';
 import Input from '@material-ui/core/Input';
-import img from '../../assets/finn.png';
+import img from '../../assets/finn.jpg';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom';
 
@@ -21,10 +21,19 @@ const Header = (props) => {
         setAnchorE1(null);
     };
 
+    const logOutHandler = () => {
+        console.log("welp")
+        sessionStorage.removeItem("access-token")
+    }
+
+    // const searchItems = (e) => {
+    //     props.filterPosts(e.target.value)
+    // }
+
     return (
         <div className="header unselectable">
             <div className="innerHeader" to="/home">
-                { window.location.pathname === "/profile" ?
+                {window.location.pathname === "/profile" ?
                     <Link to={"/home"} className="logo" style={{ textDecoration: "none" }}>
                         Image Viewer
                     </Link> :
@@ -43,7 +52,7 @@ const Header = (props) => {
                         <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} size="small" >
                             <Avatar src={img}></Avatar>
                         </IconButton>
-                        { window.location.pathname === "/home" ?
+                        {window.location.pathname === "/home" ?
                             <Menu
                                 id="profileMenu"
                                 anchorEl={anchorEl}
@@ -53,9 +62,9 @@ const Header = (props) => {
                             >
                                 <MenuItem component={Link} to={"/profile"} onClick={handleClose}>My Account</MenuItem>
                                 <hr className="menuItemSeperator" />
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                <MenuItem component={Link} to={"/"} onClick={() => { handleClose(); logOutHandler(); }}>Logout</MenuItem>
                             </Menu>
-                        : 
+                            :
                             <Menu
                                 id="profileMenu"
                                 anchorEl={anchorEl}
@@ -63,7 +72,7 @@ const Header = (props) => {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                <MenuItem component={Link} to={"/"} onClick={() => { handleClose(); logOutHandler(); }}>Logout</MenuItem>
                             </Menu>
                         }
                     </div>}

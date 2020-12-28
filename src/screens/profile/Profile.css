@@ -1,3 +1,51 @@
 .profile {
-    text-align: center;
+    width: 100%;
+    min-width: 1080px;
+}
+.profileContainer {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+}
+.profilePhoto {
+    height: 135px;
+    width: 135px;
+    border-radius: 50%;
+    margin-right: 50px;
+}
+.outer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+}
+.inner {
+    display: flex;
+}
+.socialDetails {
+    display: flex;
+    margin-top: 10px;
+}
+.socials {
+    padding-right: 70px;
+}
+.ownerDetails {
+    display: flex;
+    margin-top: 10px;
+}
+.ownerName {
+    padding-top: 15px;
+}
+.editNameButton{
+    padding-left: 10px;
+}
+.gallery {
+    padding: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
 }
