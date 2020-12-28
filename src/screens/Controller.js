@@ -13,7 +13,7 @@ class Controller extends Component {
                 url1: "https://graph.instagram.com/",
                 url2: "?fields=id,media_type,media_url,username,timestamp&access_token="
             },
-            accessToken: "IGQVJVMXN2RS1xTkxRMzZAHYTJZAZAVFxYmZAXcmhpUW1Rcmg5eUI2Vk00YUNxZAGcxSXRtMkdqUEt5WFozUy1CdUhXWjZArbFJRQ0NRcEhpUkpHb2xzeGszYUgwc1AyU3NzcnRYMEU3QkdBVzhWeWZAHMDlVbgZDZD"
+            accessToken: "IGQVJWajJFZA0ZAJQ0xXZADVjRmp2cnA5UElxTkdKY2I2d21yWWtUdGFoNkRiaGk4ckZApS0UxdEkxeHBFeklrMkZAhTjA4ZAVhhYlJaVUVFSjlBTjBpYXhzM0pQZAGs1ZAmVxQzFyUmduYUtBMXlwd1dkbWhfSAZDZD"
         }
     }
     render() {

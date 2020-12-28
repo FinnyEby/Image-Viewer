@@ -1,4 +1,4 @@
-.cardStyle {
+.LoginCardStyle {
     margin: auto;
     margin-top: 20px;
     width: 350px;
@@ -15,7 +15,4 @@
 }
 .dispBlock {
     display: block;
-}
-Link {
-    text-decoration: none;
 }

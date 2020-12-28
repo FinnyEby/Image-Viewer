@@ -29,42 +29,42 @@ class Home extends Component {
                 likeCounter: 7,
                 comments: [],
                 comment: ""
-            }
+            },
+            nextpost: {}
         }
     }
 
-    /*componentWillMount() {
-        let data = null;
-        let xhr = new XMLHttpRequest();
-        let that = this;
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                that.setState({
-                    posts: JSON.parse(this.responseText).data
-                });
-            }
-        });
+    // UNSAFE_componentWillMount() {
+    //     let data = null;
+    //     let xhr = new XMLHttpRequest();
+    //     let that = this;
+    //     xhr.addEventListener("readystatechange", function () {
+    //         if (this.readyState === 4) {
+    //             that.setState({
+    //                 posts: JSON.parse(this.responseText).data
+    //             });
+    //         }
+    //     });
+    //     xhr.open("GET", this.props.baseUrl + this.props.accessToken);
+    //     xhr.setRequestHeader("Cache-Control", "no-cache");
+    //     xhr.send(data);
+    // }
 
-        xhr.open("GET", this.props.baseUrl + this.props.accessToken);
-        xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.send(data);
-    }
-
-    getPostDetails = (postId) => {
-        let postData = null;
-        let xhrPost = new XMLHttpRequest();
-        let that2 = this;
-        xhrPost.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                that2.setState({
-                    post: JSON.parse(this.response)
-                })
-            }
-        })
-        xhrPost.open("GET", this.props.postUrl.url1 + postId + this.props.postUrl.url2 + this.props.accessToken);
-        xhrPost.setRequestHeader("Cache-Control", "no-cache");
-        xhrPost.send(postData);
-    }*/
+    // getPostDetails = (postId) => {
+    //     let postData = null;
+    //     let xhrPost = new XMLHttpRequest();
+    //     let that2 = this;
+    //     xhrPost.addEventListener("readystatechange", function () {
+    //         if (this.readyState === 4) {
+    //             that2.setState({
+    //                 post: JSON.parse(this.response)
+    //             })
+    //         }
+    //     })
+    //     xhrPost.open("GET", this.props.postUrl.url1 + postId + this.props.postUrl.url2 + this.props.accessToken);
+    //     xhrPost.setRequestHeader("Cache-Control", "no-cache");
+    //     xhrPost.send(postData);
+    // }
 
     likeClickhandler = () => {
         let tempPost = this.state.post;
@@ -76,7 +76,7 @@ class Home extends Component {
     commentChangeHandler = (e) => {
         let tempComment = this.state.post
         tempComment.comment = e.target.value
-        this.setState({tempComment})
+        this.setState({ tempComment })
     }
 
     addCommentHandler = () => {
@@ -85,66 +85,120 @@ class Home extends Component {
         this.setState(temp)
         let tempComment = this.state.post
         tempComment.comment = ""
-        this.setState({tempComment})
+        this.setState({ tempComment })
     }
 
     render() {
         let temp = 0
+
         return (
             <div>
                 <Header dispalySearchBar={true} displayUserProfileIcon={true} />
                 <div className="home">
                     <div className="homeMain">
+                        <div className="cardContainer">
+                            
                         <Card className="cardStyle">
-                            <div>
-                                <CardHeader className="cardHeader" avatar={
-                                    <Avatar className="avatar" src={img} sizes="small" />
-                                }
-                                    title={this.state.post.username}
-                                    subheader={new Date().toDateString()} />
-                            </div>
-                            <div className="cardContent">
-                                <CardContent>
-                                    <div className="imgSection">
-                                        <img className="image" src={img2} alt={this.state.post.caption} />
-                                    </div>
-                                    < hr />
-                                    <div className="postDetails">
-                                        <div className="caption">{this.state.post.caption}</div>
-                                        <div className="tags">#Tag1 #Tag2 #Tag3</div>
-                                    </div>
-                                    <div className="likeSection">
-                                        {this.state.post.liked ? <FavoriteBorderIcon className="likeButton" onClick={this.likeClickhandler} /> :
-                                            <Favorite style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} />}
-                                        <span>{this.state.post.likeCounter} likes</span>
-                                    </div>
-                                    <div className="commentSection">
-                                        <div>
-                                            <div id="comments" className="comments">
-                                                <div>
-                                                    {this.state.post.comments.map(comment => {
-                                                        temp++
-                                                        return <div key={temp}>
-                                                            <span className="bold">FinnyEbby:</span>
-                                                            <span>{comment}</span>
-                                                        </div>
-                                                    })}
+                                <div>
+                                    <CardHeader className="cardHeader" avatar={
+                                        <Avatar className="avatar" src={img} sizes="small" />
+                                    }
+                                        title={this.state.post.username}
+                                        subheader={new Date().toDateString()} />
+                                </div>
+                                <div className="cardContent">
+                                    <CardContent>
+                                        <div className="imgSection">
+                                            <img className="image" src={img2} alt={this.state.post.caption} />
+                                        </div>
+                                        < hr />
+                                        <div className="postDetails">
+                                            <div className="caption">{this.state.post.caption}</div>
+                                            <div className="tags">#Tag1 #Tag2 #Tag3</div>
+                                        </div>
+                                        <div className="likeSection">
+                                            {this.state.post.liked ? <FavoriteBorderIcon className="likeButton" onClick={this.likeClickhandler} /> :
+                                                <Favorite style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} />}
+                                            <span>{this.state.post.likeCounter} likes</span>
+                                        </div>
+                                        <div className="commentSection">
+                                            <div>
+                                                <div id="comments" className="comments">
+                                                    <div>
+                                                        {this.state.post.comments.map(comment => {
+                                                            temp++
+                                                            return <div key={temp}>
+                                                                <span className="bold">{this.state.post.username}:</span>
+                                                                <span>{comment}</span>
+                                                            </div>
+                                                        })}
+                                                    </div>
+                                                </div>
+                                                <div className="addComment">
+                                                    <FormControl className="commentInput" >
+                                                        <InputLabel htmlFor="commentTextBox">Add a comment</InputLabel>
+                                                        <Input id="commentTextBox" type="text" value={this.state.post.comment} onChange={this.commentChangeHandler} />
+                                                    </FormControl>
+                                                    <Button className="addButton" variant="contained" color="primary" onClick={this.addCommentHandler}>
+                                                        ADD
+                                                </Button>
                                                 </div>
                                             </div>
-                                            <div className="addComment">
-                                                <FormControl className="commentInput" >
-                                                    <InputLabel htmlFor="commentTextBox">Add a comment</InputLabel>
-                                                    <Input id="commentTextBox" type="text" value={this.state.post.comment} onChange={this.commentChangeHandler} />
-                                                </FormControl>
-                                                <Button className="addButton" variant="contained" color="primary" onClick={this.addCommentHandler}>
-                                                    ADD
-                                                </Button>
-                                            </div>
                                         </div>
+                                    </CardContent>
+                                </div>
+                            </Card>
+                            {   this.state.posts.map(post => {
+                                return <Card key={post.id} className="cardStyle">
+                                    <div>
+                                        <CardHeader className="cardHeader" avatar={
+                                            <Avatar className="avatar" src={img} sizes="small" />
+                                        }
+                                            title={this.state.post.username}
+                                            subheader={new Date().toDateString()} />
                                     </div>
-                                </CardContent>
-                            </div>
-                        </Card>
+                                    <div className="cardContent">
+                                        <CardContent>
+                                            <div className="imgSection">
+                                                <img className="image" src={img2} alt={this.state.post.caption} />
+                                            </div>
+                                            < hr />
+                                            <div className="postDetails">
+                                                <div className="caption">{post.caption}</div>
+                                                <div className="tags">#Tag1 #Tag2 #Tag3</div>
+                                            </div>
+                                            <div className="likeSection">
+                                                {this.state.post.liked ? <FavoriteBorderIcon className="likeButton" onClick={this.likeClickhandler} /> :
+                                                    <Favorite style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} />}
+                                                <span>{this.state.post.likeCounter} likes</span>
+                                            </div>
+                                            <div className="commentSection">
+                                                <div>
+                                                    <div id="comments" className="comments">
+                                                        <div>
+                                                            {this.state.post.comments.map(comment => {
+                                                                temp++
+                                                                return <div key={temp}>
+                                                                    <span className="bold">FinnyEbby:</span>
+                                                                    <span>{comment}</span>
+                                                                </div>
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="addComment">
+                                                        <FormControl className="commentInput" >
+                                                            <InputLabel htmlFor="commentTextBox">Add a comment</InputLabel>
+                                                            <Input id="commentTextBox" type="text" value={this.state.post.comment} onChange={this.commentChangeHandler} />
+                                                        </FormControl>
+                                                        <Button className="addButton" variant="contained" color="primary" onClick={this.addCommentHandler}> ADD </Button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </CardContent>
+                                    </div>
+                                </Card>
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>

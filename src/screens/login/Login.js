@@ -48,7 +48,7 @@ class Login extends Component {
             <div>
                 <Header />
                 <div>
-                    <Card className="cardStyle">
+                    <Card className="LoginCardStyle">
                         <CardContent>
                             <Typography className="unselectable" variant="h5">LOGIN</Typography><br />
                             <FormControl required className="formControl">

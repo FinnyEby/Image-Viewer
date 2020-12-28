@@ -2,12 +2,20 @@
     padding: 10px;
     margin-bottom: 20px;
     display: flex;
+    justify-content: space-around;
+}
+.cardContainer {
+    width: 90%;
+    display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 .cardStyle {
     width: 45%;
-    display: flex;
+    display: inline-block;
     flex-direction: column;
+    margin: 20px;
+    min-width: 500px;
 }
 .image {
     height: 500px;

@@ -23,10 +23,15 @@ const Header = (props) => {
 
     return (
         <div className="header unselectable">
-            <div className="innerHeader">
-                <div className="logo">
-                    Image Viewer
-                </div>
+            <div className="innerHeader" to="/home">
+                { window.location.pathname === "/profile" ?
+                    <Link to={"/home"} className="logo" style={{ textDecoration: "none" }}>
+                        Image Viewer
+                    </Link> :
+                    <div className="logo">
+                        Image Viewer
+                    </div>
+                }
                 <div className="loggedInUserOptions">
                     {props.dispalySearchBar && <div className="search">
                         <div className="searchIcon">
@@ -38,17 +43,29 @@ const Header = (props) => {
                         <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} size="small" >
                             <Avatar src={img}></Avatar>
                         </IconButton>
-                        <Menu
-                            id="profileMenu"
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <MenuItem component={Link} to={"/profile"} onClick={handleClose}>My Account</MenuItem>
-                            <hr className="menuItemSeperator"/>
-                            <MenuItem onClick={handleClose}>Logout</MenuItem>
-                        </Menu>
+                        { window.location.pathname === "/home" ?
+                            <Menu
+                                id="profileMenu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem component={Link} to={"/profile"} onClick={handleClose}>My Account</MenuItem>
+                                <hr className="menuItemSeperator" />
+                                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                            </Menu>
+                        : 
+                            <Menu
+                                id="profileMenu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                            </Menu>
+                        }
                     </div>}
                 </div>
             </div>
