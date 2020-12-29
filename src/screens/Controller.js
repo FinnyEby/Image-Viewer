@@ -39,11 +39,12 @@ class Controller extends Component {
     // getPostDetails = (postId ) => {
     //     let postData = null;
     //     let xhrPost = new XMLHttpRequest();
-    //     let that2 = this;
-    //     let tempList = this.state.finalPostsList;
+    //     let tempList = this.state.postLists;
+    //     that = this;
     //     xhrPost.addEventListener("readystatechange", function () {
     //         if (this.readyState === 4) {
-    //             that2.setState({ nextpost: JSON.parse(this.response) })
+    //             tempList.push(JSON.parse(this.responseText))
+    //             that.setState({postLists : tempList})
     //         }
     //     })
     //     xhrPost.open("GET", this.state.postUrl.url1 + postId + this.state.postUrl.url2 + this.state.accessToken);
@@ -57,13 +58,15 @@ class Controller extends Component {
         //     this.getPostDetails(post.id)
         // })
 
-        //this.getPostDetails(17889571087820338)
+        // console.log(this.state.postLists)
+
+        // this.getPostDetails(17889571087820338)
 
         return (
             <Router>
                 <div>
                     <Route exact path='/'><Login accessToken={this.state.accessToken} /></Route>
-                    <Route exact path='/home'><Home finalPostsList={this.state.finalPostsList} posts={this.state.filteredPosts} filterFunction={this.filterPosts} /></Route>
+                    <Route exact path='/home'><Home finalPostsList={this.state.finalPostsList} posts={this.state.posts} filterFunction={this.filterPosts} /></Route>
                     <Route exact path='/profile'><Profile finalPostsList={this.state.finalPostsList} posts={this.state.posts} /></Route>
                 </div>
             </Router>

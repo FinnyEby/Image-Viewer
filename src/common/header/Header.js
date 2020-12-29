@@ -22,13 +22,12 @@ const Header = (props) => {
     };
 
     const logOutHandler = () => {
-        console.log("welp")
         sessionStorage.removeItem("access-token")
     }
 
-    // const searchItems = (e) => {
-    //     props.filterPosts(e.target.value)
-    // }
+    const searchItems = (e) => {
+        console.log(e.target.value)
+    }
 
     return (
         <div className="header unselectable">
@@ -46,7 +45,7 @@ const Header = (props) => {
                         <div className="searchIcon">
                             <SearchIcon />
                         </div>
-                        <Input disableUnderline={true} placeholder="Search…" />
+                        <Input disableUnderline={true} placeholder="Search…" onChange={searchItems} />
                     </div>}
                     {props.displayUserProfileIcon && <div>
                         <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} size="small" >

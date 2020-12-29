@@ -7,8 +7,49 @@ import EditIcon from '@material-ui/icons/Edit';
 import Fab from '@material-ui/core/Fab';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 class Profile extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            modalIsOpen: false,
+            realName: "Finny Ebenezer",
+            updatedName: "",
+            newName: "",
+            updatedNameRequired: "dispNone"
+        }
+    }
+
+    openModel = () => {
+        this.setState({modalIsOpen: true})
+    }
+    
+    closeModal = () => {
+        this.setState({modalIsOpen: false})
+        this.setState({updatedNameRequired: "dispNone"})
+    }
+
+    updateRealName = () => {
+        if(this.state.updatedName.trim().length === 0) { 
+            this.setState({updatedNameRequired: "dispBlock"})
+        } else {
+            this.setState({realName: this.state.updatedName, updatedNameRequired: "dispNone"})
+            this.closeModal();
+        } 
+    }
+
+    newNameHandler = (e) => {
+        this.setState({updatedName: e.target.value})
+    }
+
     render() {
         return (
             <div>
@@ -37,12 +78,43 @@ class Profile extends Component {
                                     </div>
                                     <div className="ownerDetails">
                                         <div className="ownerName">
-                                            <Typography variant="h5">Finny Ebenezer</Typography>
+                                            <Typography variant="h5">{this.state.realName}</Typography>
                                         </div>
                                         <div className="editNameButton">
-                                            <Fab color="secondary" aria-label="edit">
+                                            <Fab color="secondary" aria-label="edit" onClick={this.openModel}>
                                                 <EditIcon />
                                             </Fab>
+                                            <Modal
+                                                className="nameEditModal"
+                                                aria-labelledby="transition-modal-title"
+                                                open={this.state.modalIsOpen}
+                                                onClose={this.closeModal}
+                                                closeAfterTransition
+                                                BackdropComponent={Backdrop}
+                                                BackdropProps={{
+                                                  timeout: 500,
+                                                }}
+                                            >
+                                                <div className= "nameEditModalDiv" >
+                                                    <div>
+                                                        <Typography variant="h6">Edit</Typography>
+                                                    </div><br />
+                                                    <div>
+                                                        <FormControl required>
+                                                            <InputLabel>Full Name</InputLabel>
+                                                            <Input id="newName" type="text" onChange={this.newNameHandler} />
+                                                            <FormHelperText className={this.state.updatedNameRequired}>
+                                                                <span className="red unselectable">required</span>
+                                                            </FormHelperText>
+                                                        </FormControl>
+                                                    </div><br /><br />
+                                                    <div>
+                                                        <Button variant="contained" color="primary" onClick={this.updateRealName} >
+                                                            UPDATE
+                                                        </Button>
+                                                    </div>                                                    
+                                                </div>
+                                            </Modal>
                                         </div>
                                     </div>
                                 </div>
