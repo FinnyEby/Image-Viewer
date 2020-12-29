@@ -42,6 +42,7 @@ class Profile extends Component {
             this.setState({updatedNameRequired: "dispBlock"})
         } else {
             this.setState({realName: this.state.updatedName, updatedNameRequired: "dispNone"})
+            this.setState({updatedName: ""})
             this.closeModal();
         } 
     }

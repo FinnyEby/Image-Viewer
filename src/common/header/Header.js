@@ -26,7 +26,7 @@ const Header = (props) => {
     }
 
     const searchItems = (e) => {
-        console.log(e.target.value)
+        props.filterCaptions(e.target.value)
     }
 
     return (

@@ -61,14 +61,18 @@ class Home extends Component {
     render() {
         let temp = 0
 
+        let displayPosts
+
+        this.props.showFilteredPosts ? displayPosts = this.props.filteredPosts : displayPosts = this.props.posts
+
         return (
             <div className="outerContainer">
-                <Header dispalySearchBar={true} displayUserProfileIcon={true} />
+                <Header dispalySearchBar={true} displayUserProfileIcon={true} filterCaptions={this.props.filterCaptions} />
                 <div className="home">
                     <div className="homeMain">
                         <div className="cardContainer">
                             {
-                                this.props.posts.map(post => {
+                                displayPosts.map(post => {
                                     return <Card key={post.id} id={post.id} className="cardStyle">
                                         <div>
                                             <CardHeader className="cardHeader" avatar={
