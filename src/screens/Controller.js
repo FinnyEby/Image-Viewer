@@ -16,62 +16,63 @@ class Controller extends Component {
             accessToken: "IGQVJWajJFZA0ZAJQ0xXZADVjRmp2cnA5UElxTkdKY2I2d21yWWtUdGFoNkRiaGk4ckZApS0UxdEkxeHBFeklrMkZAhTjA4ZAVhhYlJaVUVFSjlBTjBpYXhzM0pQZAGs1ZAmVxQzFyUmduYUtBMXlwd1dkbWhfSAZDZD",
             posts: [],
             filteredPosts: [],
-            showFilteredPosts: false
+            showFilteredPosts: false,
+            tempF: []
         }
     }
 
-    componentDidMount() {
-        let data = null;
-        let xhr = new XMLHttpRequest();
-        let that = this;
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                that.setState({ posts: JSON.parse(this.responseText).data });
-            }
-        });
-        xhr.open("GET", this.state.baseUrl + this.state.accessToken);
-        xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.send(data);
-        this.setState({allPosts: this.state.posts})
-    }
+    // componentDidMount() {
+    //     let data = null;
+    //     let xhr = new XMLHttpRequest();
+    //     let that = this;
+    //     xhr.addEventListener("readystatechange", function () {
+    //         if (this.readyState === 4) {
+    //             that.setState({ posts: JSON.parse(this.responseText).data });
+    //         }
+    //     });
+    //     xhr.open("GET", this.state.baseUrl + this.state.accessToken);
+    //     xhr.setRequestHeader("Cache-Control", "no-cache");
+    //     xhr.send(data);
+    //     this.setState({allPosts: this.state.posts})
+    // }
 
     // getPostDetailsById(id) {
-    //     console.log(id)
     //     let postData = null;
     //     let xhrPost = new XMLHttpRequest();
+    //     let tempPost;
+    //     let tempF = this.state.tempF
+    //     let flag = 0
     //     xhrPost.addEventListener("readystatechange", function() {
     //         if(this.readyState === 4) {
-    //             return JSON.parse(this.responseText)
+    //             tempPost = JSON.parse(this.responseText)
+    //             tempF.push(tempPost)
+    //             console.log(tempF)
     //         }
     //     })
     //     xhrPost.open("GET", this.state.postUrl.url1 + id + this.state.postUrl.url2 + this.state.accessToken);
     //     xhrPost.setRequestHeader("Cache-Control", "no-cache");
     //     xhrPost.send(postData);
+    //     if(flag === 1) {
+    //         this.setState({tempF: tempF})
+    //         flag = 0 
+    //     }
     // }
 
     filterCaptions = (str) => {
-        if(str.trim().length > 0) {
-            this.setState({showFilteredPosts : true})
-        }
         this.setState({filteredPosts: this.state.posts})
+        str.trim().length > 0 ? this.setState({showFilteredPosts : true}) : this.setState({showFilteredPosts : false})
         let temp = this.state.posts;
         let filtered = temp.filter(post => {
-            return post.caption.includes(str.trim())
+            return post.caption.toLowerCase().includes(str.trim().toLowerCase())
         })
         this.setState({filteredPosts : filtered})
     }
 
     render() {
 
-        // const postDetails = new Array(this.state.posts.length)
-
-        // let i = 0
         // this.state.posts.forEach(post => {
-        //     console.log(this.getPostDetailsById(post.id))
-        //     i++
+        //     this.getPostDetailsById(post.id)
         // })
-        
-        // console.log(postDetails) this.getPostDetailsById(post.id)
 
         return (
             <Router>

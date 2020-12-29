@@ -49,16 +49,65 @@
     justify-content: center;
     align-self: center;
 }
-.nameEditModal {
+.profileModal {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px white
+    outline: none;
+    border: 2px white;
 }
-.nameEditModalDiv {
+.innerModalDiv {
     background-color: white;
     padding: 20px;
     outline: none;
     border-radius: 4px;
-    border: 2px grey
+}
+.profilePhotoInPostModal {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.postImage {
+    margin-right: 20px;
+    width: 500px;
+}
+.postModal {
+    display: flex;
+}
+.leftDiv {
+    display: flex;
+    flex-direction: column;
+}
+.rightDiv {
+    width: 500px;
+    position: relative;
+}
+.userProfilePhotoAndName {
+    display: flex;
+}
+.usernamePostModal {
+    padding: 10px;
+}
+.addComment {
+    position: absolute; 
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    justify-content: baseline;
+    align-items: center;
+}
+.commentInput {
+    width: 80%;
+}
+.rightBottomSection {
+    display: flex;
+    flex-direction: column;
+}
+.likeSection {
+    position: absolute; 
+    bottom: 5%;
+    display: flex;
+    justify-content: baseline;
 }

@@ -50,12 +50,14 @@ class Home extends Component {
     }
 
     addCommentHandler = () => {
-        let temp = this.state.post.comments
-        temp.push(this.state.post.comment)
-        this.setState(temp)
-        let tempComment = this.state.post
-        tempComment.comment = ""
-        this.setState({ tempComment })
+        if(this.state.post.comment.trim() !== "") {
+            let temp = this.state.post.comments
+            temp.push(this.state.post.comment)
+            this.setState(temp)
+            let tempComment = this.state.post
+            tempComment.comment = ""
+            this.setState({ tempComment })
+        }
     }
 
     render() {
