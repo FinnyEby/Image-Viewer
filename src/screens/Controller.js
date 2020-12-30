@@ -17,69 +17,65 @@ class Controller extends Component {
             posts: [],
             filteredPosts: [],
             showFilteredPosts: false,
-            tempF: []
+            tempList: [],
+            tempPost: {}
         }
     }
 
-    componentDidMount() {
-        let data = null;
-        let xhr = new XMLHttpRequest();
-        let that = this;
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                that.setState({ posts: JSON.parse(this.responseText).data });
-            }
-        });
-        xhr.open("GET", this.state.baseUrl + this.state.accessToken);
-        xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.send(data);
-        this.setState({allPosts: this.state.posts})
-    }
-
-    // getPostDetailsById(id) {
-    //     let postData = null;
-    //     let xhrPost = new XMLHttpRequest();
-    //     let tempPost;
-    //     let tempF = this.state.tempF
-    //     let flag = 0
-    //     xhrPost.addEventListener("readystatechange", function() {
-    //         if(this.readyState === 4) {
-    //             tempPost = JSON.parse(this.responseText)
-    //             tempF.push(tempPost)
-    //             console.log(tempF)
+    // componentDidMount() {
+    //     let data = null;
+    //     let xhr = new XMLHttpRequest();
+    //     let that = this;
+    //     xhr.addEventListener("readystatechange", function () {
+    //         if (this.readyState === 4) {
+    //             that.setState({ posts: JSON.parse(this.responseText).data });
     //         }
-    //     })
-    //     xhrPost.open("GET", this.state.postUrl.url1 + id + this.state.postUrl.url2 + this.state.accessToken);
-    //     xhrPost.setRequestHeader("Cache-Control", "no-cache");
-    //     xhrPost.send(postData);
-    //     if(flag === 1) {
-    //         this.setState({tempF: tempF})
-    //         flag = 0 
-    //     }
+    //     });
+    //     xhr.open("GET", this.state.baseUrl + this.state.accessToken);
+    //     xhr.setRequestHeader("Cache-Control", "no-cache");
+    //     xhr.send(data);
+    //     this.setState({ allPosts: this.state.posts })
     // }
 
+    getPostDetailsById = (id) => {
+        let postData = null;
+        let xhrPost = new XMLHttpRequest();
+        let tempPostDetails = this.state.tempList
+        xhrPost.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                tempPostDetails.push(JSON.parse(this.responseText))
+            }
+        })
+        xhrPost.open("GET", this.state.postUrl.url1 + id + this.state.postUrl.url2 + this.state.accessToken);
+        xhrPost.setRequestHeader("Cache-Control", "no-cache");
+        xhrPost.send(postData);
+        return tempPostDetails
+    }
+
     filterCaptions = (str) => {
-        this.setState({filteredPosts: this.state.posts})
-        str.trim().length > 0 ? this.setState({showFilteredPosts : true}) : this.setState({showFilteredPosts : false})
+        this.setState({ filteredPosts: this.state.posts })
+        str.trim().length > 0 ? this.setState({ showFilteredPosts: true }) : this.setState({ showFilteredPosts: false })
         let temp = this.state.posts;
         let filtered = temp.filter(post => {
             return post.caption.toLowerCase().includes(str.trim().toLowerCase())
         })
-        this.setState({filteredPosts : filtered})
+        this.setState({ filteredPosts: filtered })
     }
 
     render() {
+        var postDetails = [];
 
-        // this.state.posts.forEach(post => {
-        //     this.getPostDetailsById(post.id)
-        // })
+        this.state.posts.forEach(post => {
+            postDetails = this.getPostDetailsById(post.id)
+        })
+
 
         return (
             <Router>
                 <div>
                     <Route exact path='/'><Login accessToken={this.state.accessToken} /></Route>
-                    <Route exact path='/home'><Home showFilteredPosts={this.state.showFilteredPosts} filteredPosts={this.state.filteredPosts} posts={this.state.posts} filterCaptions={this.filterCaptions} /></Route>
-                    <Route exact path='/profile'><Profile posts={this.state.posts} /></Route>
+                    <Route exact path='/home'><Home showFilteredPosts={this.state.showFilteredPosts} filteredPosts={this.state.filteredPosts} posts={this.state.posts} filterCaptions={this.filterCaptions} postDetails={postDetails} /></Route>
+                    <Route exact path='/profile'><Profile posts={this.state.posts} postDetails={postDetails} /></Route>
                 </div>
             </Router>
         )

@@ -116,6 +116,7 @@ class Profile extends Component {
     render() {
 
         let temp = 0
+        let tempsrc
 
         return (
             <div>
@@ -125,7 +126,7 @@ class Profile extends Component {
                         <div className="outer">
                             <div className="inner">
                                 <div>
-                                    <img className="profilePhoto" src={img} alt="profile" onClick={this.openPostModel} />
+                                    <img className="profilePhoto" src={img} alt="profile" />
                                 </div>
                                 <div className="accountDetails">
                                     <div>
@@ -133,7 +134,7 @@ class Profile extends Component {
                                     </div>
                                     <div className="socialDetails">
                                         <div className="socials">
-                                            <Typography variant="h6">Post: 10</Typography>
+                                            <Typography variant="h6">Post: {this.props.posts.length}</Typography>
                                         </div>
                                         <div className="socials">
                                             <Typography variant="h6">Follows: 10</Typography>
@@ -189,8 +190,13 @@ class Profile extends Component {
                             <div className="gridSection">
                                 <GridList cellHeight={160} className={"postLists"} cols={3}>
                                     {this.props.posts.map(post => (
+                                        this.props.postDetails.forEach(thispost => {
+                                            if(post.id === thispost.id ) {
+                                                tempsrc = thispost.media_url
+                                            }
+                                        }),
                                         <GridListTile key={post.id} className="gridTile">
-                                            <img src={img} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption)} />
+                                            <img src={tempsrc} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption)} />
                                         </GridListTile>
                                     ))}
                                 </GridList>

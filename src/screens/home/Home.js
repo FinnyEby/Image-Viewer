@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import img from '../../assets/finn.jpg';
-import img2 from '../../assets/bird.jpeg';
 import Avatar from '@material-ui/core/Avatar';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
@@ -18,10 +17,12 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
+            url: "",
             search: "",
             posts: [],
             nextpost: {},
             finalpostlist: [],
+            newPost: {},
             post: {
                 id: "",
                 caption: "Friendly Bird!",
@@ -61,7 +62,10 @@ class Home extends Component {
     }
 
     render() {
+
         let temp = 0
+
+        let tempsrc;
 
         let displayPosts
 
@@ -75,6 +79,11 @@ class Home extends Component {
                         <div className="cardContainer">
                             {
                                 displayPosts.map(post => {
+                                    this.props.postDetails.forEach(thispost => {
+                                        if(thispost.id === post.id) {
+                                            tempsrc = thispost.media_url
+                                        }
+                                    });
                                     return <Card key={post.id} id={post.id} className="cardStyle">
                                         <div>
                                             <CardHeader className="cardHeader" avatar={
@@ -86,7 +95,7 @@ class Home extends Component {
                                         <div className="cardContent">
                                             <CardContent>
                                                 <div className="imgSection">
-                                                    <img className="image" src={img2} alt={this.state.post.caption} />
+                                                    <img className="image" src={tempsrc} alt={tempsrc}/>
                                                 </div>
                                                 < hr />
                                                 <div className="postDetails">
