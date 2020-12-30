@@ -89,7 +89,7 @@
 .usernamePostModal {
     padding: 10px;
 }
-.addComment {
+.addCommentInProfilePage {
     position: absolute; 
     bottom: 0;
     width: 100%;
@@ -105,9 +105,10 @@
     display: flex;
     flex-direction: column;
 }
-.likeSection {
+.likeSectionInProfilePage {
     position: absolute; 
     bottom: 5%;
     display: flex;
     justify-content: baseline;
+    margin-bottom: 30px;
 }

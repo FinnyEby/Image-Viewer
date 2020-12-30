@@ -22,6 +22,7 @@ class Profile extends Component {
     constructor() {
         super();
         this.state = {
+            postCaption: "",
             modalIsOpen: false,
             PostModalIsOpen: false,
             realName: "Finny Ebenezer",
@@ -72,8 +73,9 @@ class Profile extends Component {
         console.log(id)
     }
 
-    openPostModel = () => {
+    openPostModel = (caption) => {
         this.setState({ PostModalIsOpen: true })
+        this.setState({ postCaption: caption })
     }
 
     closePostModal = () => {
@@ -188,7 +190,7 @@ class Profile extends Component {
                                 <GridList cellHeight={160} className={"postLists"} cols={3}>
                                     {this.props.posts.map(post => (
                                         <GridListTile key={post.id} className="gridTile">
-                                            <img src={img} alt={post.caption} onClick={this.openPostModel} />
+                                            <img src={img} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption)} />
                                         </GridListTile>
                                     ))}
                                 </GridList>
@@ -213,7 +215,7 @@ class Profile extends Component {
                                                     <Typography className="usernamePostModal" variant="h6">username</Typography>
                                                 </div>
                                                 <hr />
-                                                <Typography variant="h5">Post caption</Typography>
+                                                <Typography variant="h5">{this.state.postCaption}</Typography>
                                                 <div className="tags">#Tag1 #Tag2 #Tag3</div>
                                                 <div className="commentSection">
                                                     <div>
@@ -229,12 +231,12 @@ class Profile extends Component {
                                                             </div>
                                                         </div>
                                                         <div className="rightBottomSection">
-                                                            <div className="likeSection">
+                                                            <div className="likeSectionInProfilePage">
                                                                 {this.state.post.liked ? <FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler} /> :
                                                                     <Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} />}
                                                                 <span>{this.state.post.likeCounter} likes</span>
                                                             </div>
-                                                            <div className="addComment">
+                                                            <div className="addCommentInProfilePage">
                                                                 <FormControl className="commentInput" >
                                                                     <InputLabel htmlFor="commentTextBox">Add a comment</InputLabel>
                                                                     <Input id={"commentTextBox" + 1} type="text" value={this.state.post.comment} onChange={this.commentChangeHandler} />
