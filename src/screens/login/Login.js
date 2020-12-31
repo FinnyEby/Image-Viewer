@@ -16,14 +16,14 @@ class Login extends Component {
     constructor() {
         super();
         this.state = {
+            expectedUsername: "upgrad",
+            expectedPassword: "upgrad",
             username: "",
             password: "",
             usernameRequired: "dispNone",
             passwordRequired: "dispNone",
             userInfoIncorrect: "dispNone",
-            expectedUsername: "user123",
-            expectedPassword: "passcode",
-            loginClicked: false
+            accessToken: "IGQVJWajJFZA0ZAJQ0xXZADVjRmp2cnA5UElxTkdKY2I2d21yWWtUdGFoNkRiaGk4ckZApS0UxdEkxeHBFeklrMkZAhTjA4ZAVhhYlJaVUVFSjlBTjBpYXhzM0pQZAGs1ZAmVxQzFyUmduYUtBMXlwd1dkbWhfSAZDZD",
         }
     }
 
@@ -36,12 +36,12 @@ class Login extends Component {
     }
 
     loginHandler = () => {
+        this.setState({ userInfoIncorrect: "dispNone" })
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" })
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
-        if(this.state.username && this.state.password) {
+        if (this.state.username && this.state.password) {
             (this.state.username !== this.state.expectedUsername || this.state.password !== this.state.expectedPassword) ?
-            this.setState({ userInfoIncorrect: "dispBlock" }) :
-            sessionStorage.setItem("access-token", this.props.accessToken)
+                this.setState({ userInfoIncorrect: "dispBlock" }) : (sessionStorage.setItem("access-token", this.state.accessToken))
         }
     }
 

@@ -22,6 +22,7 @@ class Profile extends Component {
     constructor() {
         super();
         this.state = {
+            likeCounter: "",
             username: "",
             modalSrc: "",
             postCaption: "",
@@ -35,12 +36,7 @@ class Profile extends Component {
             tempComment: "",
             comments: [],
             post: {
-                id: "",
-                caption: "Friendly Bird!",
-                media_url: "",
-                timestamp: "2008-07-18T00:00:00+05:30",
-                liked: true,
-                likeCounter: 7,
+                liked: false,
                 comments: [],
                 comment: ""
             }
@@ -74,11 +70,12 @@ class Profile extends Component {
         console.log(id)
     }
 
-    openPostModel = (caption, url, user) => {
+    openPostModel = (caption, url, user, likes) => {
         this.setState({ PostModalIsOpen: true })
         this.setState({ postCaption: caption })
         this.setState({ modalSrc: url})
         this.setState({username: user})
+        this.setState({likeCounter: likes})
     }
 
     closePostModal = () => {
@@ -88,7 +85,6 @@ class Profile extends Component {
     likeClickhandler = () => {
         let tempPost = this.state.post;
         this.state.post.liked ? tempPost.liked = false : tempPost.liked = true
-        this.state.post.liked ? tempPost.likeCounter-- : tempPost.likeCounter++
         this.setState(tempPost)
     }
 
@@ -114,6 +110,8 @@ class Profile extends Component {
         let temp = 0
         let tempsrc
         let tempUsername
+        let likeNumber
+        let counter = 0
 
         return (
             <div>
@@ -134,10 +132,10 @@ class Profile extends Component {
                                             <Typography variant="h6">Post: {this.props.posts.length}</Typography>
                                         </div>
                                         <div className="socials">
-                                            <Typography variant="h6">Follows: 10</Typography>
+                                            <Typography variant="h6">Follows: {this.props.follows}</Typography>
                                         </div>
                                         <div className="socials">
-                                            <Typography variant="h6">Followed By: 10</Typography>
+                                            <Typography variant="h6">Followed By: {this.props.followedBy}</Typography>
                                         </div>
                                     </div>
                                     <div className="ownerDetails">
@@ -186,17 +184,19 @@ class Profile extends Component {
                         <div className="gallery">
                             <div className="gridSection">
                                 <GridList cellHeight={160} className={"postLists"} cols={3}>
-                                    {this.props.posts.map(post => (
+                                    {this.props.posts.map(post => {
+                                        likeNumber = this.props.likeList[counter]
+                                        counter++
                                         this.props.postDetails.forEach(thispost => {
                                             if(post.id === thispost.id ) {
                                                 tempsrc = thispost.media_url
                                                 tempUsername = thispost.username
                                             }
-                                        }),
-                                        <GridListTile key={post.id} className="gridTile">
-                                            <img src={tempsrc} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption, tempsrc, tempUsername)} />
+                                        })
+                                        return <GridListTile key={post.id} className="gridTile">
+                                            <img src={tempsrc} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption, tempsrc, tempUsername, likeNumber)} />
                                         </GridListTile>
-                                    ))}
+                                    })}
                                 </GridList>
                                 <Modal
                                     className="profileModal"
@@ -235,10 +235,11 @@ class Profile extends Component {
                                                             </div>
                                                         </div>
                                                         <div className="rightBottomSection">
-                                                            <div className="likeSectionInProfilePage">
-                                                                {this.state.post.liked ? <FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler} /> :
-                                                                    <Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} />}
-                                                                <span>{this.state.post.likeCounter} likes</span>
+                                                            <div>
+                                                                {
+                                                                    this.state.post.liked ? <div className="likeSectionInProfilePage"><Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} /><span>{this.state.likeCounter+1} likes</span></div>  :
+                                                                    <div className="likeSectionInProfilePage"><FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler} /><span>{this.state.likeCounter} likes</span></div> 
+                                                                }
                                                             </div>
                                                             <div className="addCommentInProfilePage">
                                                                 <FormControl className="commentInput" >

@@ -18,7 +18,9 @@ class Controller extends Component {
             filteredPosts: [],
             showFilteredPosts: false,
             tempList: [],
-            tempPost: {}
+            likeDetails: new Array(8).fill(false),
+            follows: Math.floor(Math.random() * 20),
+            followedBy: Math.floor(Math.random() * 20)
         }
     }
 
@@ -62,20 +64,26 @@ class Controller extends Component {
         this.setState({ filteredPosts: filtered })
     }
 
+    updatelikeDetails = (id) => {
+        console.log(id)
+        console.log(this.state.likeDetails)
+    }
+
     render() {
-        var postDetails = [];
+        let postDetails = []
+        let likeList = []
 
         this.state.posts.forEach(post => {
             postDetails = this.getPostDetailsById(post.id)
+            likeList.push(Math.floor(Math.random() * 20))
         })
-
 
         return (
             <Router>
                 <div>
                     <Route exact path='/'><Login accessToken={this.state.accessToken} /></Route>
-                    <Route exact path='/home'><Home showFilteredPosts={this.state.showFilteredPosts} filteredPosts={this.state.filteredPosts} posts={this.state.posts} filterCaptions={this.filterCaptions} postDetails={postDetails} /></Route>
-                    <Route exact path='/profile'><Profile posts={this.state.posts} postDetails={postDetails} /></Route>
+                    <Route exact path='/home'><Home updatelikeDetails={this.updatelikeDetails} showFilteredPosts={this.state.showFilteredPosts} filteredPosts={this.state.filteredPosts} posts={this.state.posts} filterCaptions={this.filterCaptions} postDetails={postDetails} likeList={likeList} /></Route>
+                    <Route exact path='/profile'><Profile updatelikeDetails={this.updatelikeDetails} posts={this.state.posts} postDetails={postDetails} likeList={likeList} followedBy={this.state.followedBy} follows={this.state.follows} /></Route>
                 </div>
             </Router>
         )

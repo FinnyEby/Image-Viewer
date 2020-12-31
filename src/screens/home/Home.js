@@ -20,18 +20,8 @@ class Home extends Component {
         this.state = {
             url: "",
             search: "",
-            posts: [],
-            nextpost: {},
-            finalpostlist: [],
-            newPost: {},
             post: {
-                id: "",
-                caption: "Friendly Bird!",
-                media_url: "",
-                username: "FinnyEbby",
-                timestamp: "2008-07-18T00:00:00+05:30",
-                liked: true,
-                likeCounter: 7,
+                liked: false,
                 comments: [],
                 comment: ""
             }
@@ -41,7 +31,6 @@ class Home extends Component {
     likeClickhandler = () => {
         let tempPost = this.state.post;
         this.state.post.liked ? tempPost.liked = false : tempPost.liked = true
-        this.state.post.liked ? tempPost.likeCounter-- : tempPost.likeCounter++
         this.setState(tempPost)
     }
 
@@ -75,6 +64,8 @@ class Home extends Component {
         let tempHour
         let tempMin
         let tempSec
+        let likeNumber
+        let counter = 0
 
         let displayPosts
 
@@ -88,6 +79,8 @@ class Home extends Component {
                         <div className="cardContainer">
                             {
                                 displayPosts.map(post => {
+                                    likeNumber = this.props.likeList[counter]
+                                    counter++
                                     this.props.postDetails.forEach(thispost => {
                                         if(thispost.id === post.id) {
                                             tempusername = thispost.username
@@ -119,10 +112,11 @@ class Home extends Component {
                                                     <div className="caption"><Typography variant="h5">{post.caption}</Typography></div>
                                                     <div className="tags">#Tag1 #Tag2 #Tag3</div>
                                                 </div>
-                                                <div className="likeSection">
-                                                    {this.state.post.liked ? <FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler} /> :
-                                                        <Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} />}
-                                                    <span>{this.state.post.likeCounter} likes</span>
+                                                <div>
+                                                    {
+                                                        this.state.post.liked ? <div className="likeSection"><Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} /><span>{likeNumber+1} likes</span></div>  :
+                                                        <div className="likeSection"><FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler} /><span>{likeNumber} likes</span></div> 
+                                                    }
                                                 </div>
                                                 <div className="commentSection">
                                                     <div>
