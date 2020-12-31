@@ -65,8 +65,15 @@ class Home extends Component {
 
         let temp = 0
 
+        let tempusername
         let tempSrc
         let tempTimeStamp
+        let tempDate
+        let tempMonth
+        let tempYear
+        let tempHour
+        let tempMin
+        let tempSec
 
         let displayPosts
 
@@ -82,8 +89,15 @@ class Home extends Component {
                                 displayPosts.map(post => {
                                     this.props.postDetails.forEach(thispost => {
                                         if(thispost.id === post.id) {
+                                            tempusername = thispost.username
                                             tempSrc = thispost.media_url
-                                            tempTimeStamp = thispost.timestamp
+                                            tempTimeStamp = new Date(thispost.timestamp)
+                                            tempDate = tempTimeStamp.getDate()
+                                            tempMonth = tempTimeStamp.getMonth() + 1
+                                            tempYear = tempTimeStamp.getFullYear()
+                                            tempHour = tempTimeStamp.getHours()
+                                            tempMin = tempTimeStamp.getMinutes()
+                                            tempSec = tempTimeStamp.getSeconds()
                                         }
                                     });
                                     return <Card key={post.id} id={post.id} className="cardStyle">
@@ -91,8 +105,8 @@ class Home extends Component {
                                             <CardHeader className="cardHeader" avatar={
                                                 <Avatar className="avatar" src={img} sizes="small" />
                                             }
-                                                title={this.state.post.username}
-                                                subheader={tempTimeStamp} />
+                                                title={tempusername}
+                                                subheader={tempDate+"/"+tempMonth+"/"+tempYear+" "+tempHour+":"+tempMin+":"+tempSec} />
                                         </div>
                                         <div className="cardContent">
                                             <CardContent>
