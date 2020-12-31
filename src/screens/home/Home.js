@@ -12,6 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 class Home extends Component {
     constructor() {
@@ -115,7 +116,7 @@ class Home extends Component {
                                                 </div>
                                                 < hr />
                                                 <div className="postDetails">
-                                                    <div className="caption">{post.caption}</div>
+                                                    <div className="caption"><Typography variant="h5">{post.caption}</Typography></div>
                                                     <div className="tags">#Tag1 #Tag2 #Tag3</div>
                                                 </div>
                                                 <div className="likeSection">

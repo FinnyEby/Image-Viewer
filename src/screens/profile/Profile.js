@@ -114,7 +114,6 @@ class Profile extends Component {
         let temp = 0
         let tempsrc
         let tempUsername
-        //let temptimestamp
 
         return (
             <div>
@@ -229,7 +228,7 @@ class Profile extends Component {
                                                                 {this.state.post.comments.map(comment => {
                                                                     temp++
                                                                     return <div key={temp}>
-                                                                        <span className="bold">{this.state.post.username}:</span>
+                                                                        <span className="bold">{this.state.username}:</span>
                                                                         <span>{comment}</span>
                                                                     </div>
                                                                 })}

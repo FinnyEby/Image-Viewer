@@ -9,7 +9,9 @@
     justify-content: space-around;
 }
 .cardContainer {
-    min-width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+    min-width: 1080px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
