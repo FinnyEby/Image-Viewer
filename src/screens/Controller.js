@@ -22,20 +22,20 @@ class Controller extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     let data = null;
-    //     let xhr = new XMLHttpRequest();
-    //     let that = this;
-    //     xhr.addEventListener("readystatechange", function () {
-    //         if (this.readyState === 4) {
-    //             that.setState({ posts: JSON.parse(this.responseText).data });
-    //         }
-    //     });
-    //     xhr.open("GET", this.state.baseUrl + this.state.accessToken);
-    //     xhr.setRequestHeader("Cache-Control", "no-cache");
-    //     xhr.send(data);
-    //     this.setState({ allPosts: this.state.posts })
-    // }
+    componentDidMount() {
+        let data = null;
+        let xhr = new XMLHttpRequest();
+        let that = this;
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                that.setState({ posts: JSON.parse(this.responseText).data });
+            }
+        });
+        xhr.open("GET", this.state.baseUrl + this.state.accessToken);
+        xhr.setRequestHeader("Cache-Control", "no-cache");
+        xhr.send(data);
+        this.setState({ allPosts: this.state.posts })
+    }
 
     getPostDetailsById = (id) => {
         let postData = null;

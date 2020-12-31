@@ -22,6 +22,8 @@ class Profile extends Component {
     constructor() {
         super();
         this.state = {
+            username: "",
+            modalSrc: "",
             postCaption: "",
             modalIsOpen: false,
             PostModalIsOpen: false,
@@ -36,7 +38,6 @@ class Profile extends Component {
                 id: "",
                 caption: "Friendly Bird!",
                 media_url: "",
-                username: "FinnyEbby",
                 timestamp: "2008-07-18T00:00:00+05:30",
                 liked: true,
                 likeCounter: 7,
@@ -73,20 +74,15 @@ class Profile extends Component {
         console.log(id)
     }
 
-    openPostModel = (caption) => {
+    openPostModel = (caption, url, user) => {
         this.setState({ PostModalIsOpen: true })
         this.setState({ postCaption: caption })
+        this.setState({ modalSrc: url})
+        this.setState({username: user})
     }
 
     closePostModal = () => {
         this.setState({ PostModalIsOpen: false })
-    }
-
-    likeClickhandler = () => {
-        let tempPost = this.state.post;
-        this.state.post.liked ? tempPost.liked = false : tempPost.liked = true
-        this.state.post.liked ? tempPost.likeCounter-- : tempPost.likeCounter++
-        this.setState(tempPost)
     }
 
     likeClickhandler = () => {
@@ -117,6 +113,8 @@ class Profile extends Component {
 
         let temp = 0
         let tempsrc
+        let tempUsername
+        //let temptimestamp
 
         return (
             <div>
@@ -130,7 +128,7 @@ class Profile extends Component {
                                 </div>
                                 <div className="accountDetails">
                                     <div>
-                                        <Typography variant="h4">finnyebby</Typography>
+                                        <Typography variant="h4">{this.state.username}</Typography>
                                     </div>
                                     <div className="socialDetails">
                                         <div className="socials">
@@ -193,10 +191,11 @@ class Profile extends Component {
                                         this.props.postDetails.forEach(thispost => {
                                             if(post.id === thispost.id ) {
                                                 tempsrc = thispost.media_url
+                                                tempUsername = thispost.username
                                             }
                                         }),
                                         <GridListTile key={post.id} className="gridTile">
-                                            <img src={tempsrc} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption)} />
+                                            <img src={tempsrc} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption, tempsrc, tempUsername)} />
                                         </GridListTile>
                                     ))}
                                 </GridList>
@@ -213,12 +212,12 @@ class Profile extends Component {
                                     <div className="innerModalDiv">
                                         <div className="postModal">
                                             <div className="leftDiv">
-                                                <img className="postImage" src={img} alt="alternate" />
+                                                <img className="postImage" src={this.state.modalSrc} alt="alternate" />
                                             </div>
                                             <div className="rightDiv">
                                                 <div className="userProfilePhotoAndName">
                                                     <img className="profilePhotoInPostModal" src={img} alt="profilePic" />
-                                                    <Typography className="usernamePostModal" variant="h6">username</Typography>
+                                                    <Typography className="usernamePostModal" variant="h6">{this.state.username}</Typography>
                                                 </div>
                                                 <hr />
                                                 <Typography variant="h5">{this.state.postCaption}</Typography>

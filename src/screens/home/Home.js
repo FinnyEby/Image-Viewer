@@ -65,7 +65,8 @@ class Home extends Component {
 
         let temp = 0
 
-        let tempsrc;
+        let tempSrc
+        let tempTimeStamp
 
         let displayPosts
 
@@ -81,7 +82,8 @@ class Home extends Component {
                                 displayPosts.map(post => {
                                     this.props.postDetails.forEach(thispost => {
                                         if(thispost.id === post.id) {
-                                            tempsrc = thispost.media_url
+                                            tempSrc = thispost.media_url
+                                            tempTimeStamp = thispost.timestamp
                                         }
                                     });
                                     return <Card key={post.id} id={post.id} className="cardStyle">
@@ -90,12 +92,12 @@ class Home extends Component {
                                                 <Avatar className="avatar" src={img} sizes="small" />
                                             }
                                                 title={this.state.post.username}
-                                                subheader={new Date().toDateString()} />
+                                                subheader={tempTimeStamp} />
                                         </div>
                                         <div className="cardContent">
                                             <CardContent>
                                                 <div className="imgSection">
-                                                    <img className="image" src={tempsrc} alt={tempsrc}/>
+                                                    <img className="image" src={tempSrc} alt={post.caption}/>
                                                 </div>
                                                 < hr />
                                                 <div className="postDetails">
