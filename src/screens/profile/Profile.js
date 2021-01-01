@@ -22,6 +22,7 @@ class Profile extends Component {
     constructor() {
         super();
         this.state = {
+            counter: "",
             likeCounter: "",
             username: "",
             modalSrc: "",
@@ -35,8 +36,8 @@ class Profile extends Component {
             comment: "",
             tempComment: "",
             comments: [],
+            liked: false,
             post: {
-                liked: false,
                 comments: [],
                 comment: ""
             }
@@ -66,16 +67,14 @@ class Profile extends Component {
         this.setState({ updatedName: e.target.value })
     }
 
-    gridTileClickHandler = (id) => {
-        console.log(id)
-    }
-
-    openPostModel = (caption, url, user, likes) => {
+    openPostModel = (caption, url, user, likes, liked, counter) => {
         this.setState({ PostModalIsOpen: true })
         this.setState({ postCaption: caption })
         this.setState({ modalSrc: url})
         this.setState({username: user})
         this.setState({likeCounter: likes})
+        this.setState({liked: liked})
+        this.setState({counter: counter})
     }
 
     closePostModal = () => {
@@ -83,9 +82,8 @@ class Profile extends Component {
     }
 
     likeClickhandler = () => {
-        let tempPost = this.state.post;
-        this.state.post.liked ? tempPost.liked = false : tempPost.liked = true
-        this.setState(tempPost)
+        this.state.liked ? this.setState({liked: false}) : this.setState({liked: true})
+        this.props.updatelikeDetails(this.state.counter)
     }
 
     commentChangeHandler = (e) => {
@@ -112,6 +110,7 @@ class Profile extends Component {
         let tempUsername
         let likeNumber
         let counter = 0
+        let likeStatus
 
         return (
             <div>
@@ -121,7 +120,7 @@ class Profile extends Component {
                         <div className="outer">
                             <div className="inner">
                                 <div>
-                                    <img className="profilePhoto" src={img} alt="profile" />
+                                    <img className="profilePhoto" src={img} alt="profile" onClick={this.openPostModel.bind(this, "Temporary Test Post", img, "testUser", Math.floor(Math.random() * 20), false, 0 )} />
                                 </div>
                                 <div className="accountDetails">
                                     <div>
@@ -186,6 +185,7 @@ class Profile extends Component {
                                 <GridList cellHeight={160} className={"postLists"} cols={3}>
                                     {this.props.posts.map(post => {
                                         likeNumber = this.props.likeList[counter]
+                                        likeStatus = this.props.likeDetails[counter]
                                         counter++
                                         this.props.postDetails.forEach(thispost => {
                                             if(post.id === thispost.id ) {
@@ -194,7 +194,7 @@ class Profile extends Component {
                                             }
                                         })
                                         return <GridListTile key={post.id} className="gridTile">
-                                            <img src={tempsrc} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption, tempsrc, tempUsername, likeNumber)} />
+                                            <img src={tempsrc} alt={post.caption} onClick={this.openPostModel.bind(this, post.caption, tempsrc, tempUsername, likeNumber, likeStatus, counter-1)} />
                                         </GridListTile>
                                     })}
                                 </GridList>
@@ -237,7 +237,7 @@ class Profile extends Component {
                                                         <div className="rightBottomSection">
                                                             <div>
                                                                 {
-                                                                    this.state.post.liked ? <div className="likeSectionInProfilePage"><Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} /><span>{this.state.likeCounter+1} likes</span></div>  :
+                                                                    this.state.liked ? <div className="likeSectionInProfilePage"><Favorite id={2} style={{ color: "red" }} className="likeButton"  onClick={this.likeClickhandler} /><span>{this.state.likeCounter+1} likes</span></div>  :
                                                                     <div className="likeSectionInProfilePage"><FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler} /><span>{this.state.likeCounter} likes</span></div> 
                                                                 }
                                                             </div>

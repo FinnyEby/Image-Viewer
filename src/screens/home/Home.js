@@ -28,10 +28,11 @@ class Home extends Component {
         }
     }
 
-    likeClickhandler = () => {
+    likeClickhandler = (id) => {
         let tempPost = this.state.post;
         this.state.post.liked ? tempPost.liked = false : tempPost.liked = true
         this.setState(tempPost)
+        this.props.updatelikeDetails(id)
     }
 
     commentChangeHandler = (e) => {
@@ -114,8 +115,8 @@ class Home extends Component {
                                                 </div>
                                                 <div>
                                                     {
-                                                        this.state.post.liked ? <div className="likeSection"><Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler} /><span>{likeNumber+1} likes</span></div>  :
-                                                        <div className="likeSection"><FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler} /><span>{likeNumber} likes</span></div> 
+                                                        this.props.likeDetails[counter-1] ? <div className="likeSection"><Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler.bind(this, counter-1)} /><span>{likeNumber+1} likes</span></div>  :
+                                                        <div className="likeSection"><FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler.bind(this, counter-1)} /><span>{likeNumber} likes</span></div> 
                                                     }
                                                 </div>
                                                 <div className="commentSection">
