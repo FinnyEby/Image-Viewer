@@ -14,6 +14,8 @@ class Controller extends Component {
                 url2: "?fields=id,media_type,media_url,username,timestamp&access_token="
             },
             accessToken: "IGQVJWajJFZA0ZAJQ0xXZADVjRmp2cnA5UElxTkdKY2I2d21yWWtUdGFoNkRiaGk4ckZApS0UxdEkxeHBFeklrMkZAhTjA4ZAVhhYlJaVUVFSjlBTjBpYXhzM0pQZAGs1ZAmVxQzFyUmduYUtBMXlwd1dkbWhfSAZDZD",
+            username: "",
+            usernameSet: false,
             posts: [],
             filteredPosts: [],
             showFilteredPosts: false,
@@ -69,6 +71,12 @@ class Controller extends Component {
         let temp = this.state.likeDetails
         temp[id] ? temp[id] = false : temp[id] = true
         this.setState({likeDetails: temp})
+        this.setState({usernameSet: true})
+    }
+
+    setUsername = (name) => {
+        this.setState({username: name})
+        this.setState({usernameSet: true})
     }
 
     render() {

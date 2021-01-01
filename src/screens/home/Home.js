@@ -18,10 +18,8 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
-            url: "",
-            search: "",
+            liked: false,
             post: {
-                liked: false,
                 comments: [],
                 comment: ""
             }
@@ -29,9 +27,9 @@ class Home extends Component {
     }
 
     likeClickhandler = (id) => {
-        let tempPost = this.state.post;
-        this.state.post.liked ? tempPost.liked = false : tempPost.liked = true
-        this.setState(tempPost)
+        //let tempPost = this.state.post;
+        //this.state.post.liked ? tempPost.liked = false : tempPost.liked = true
+        //this.setState(tempPost)
         this.props.updatelikeDetails(id)
     }
 
@@ -56,7 +54,7 @@ class Home extends Component {
 
         let temp = 0
 
-        let tempusername
+        let tempusername = ""
         let tempSrc
         let tempTimeStamp
         let tempDate
@@ -126,7 +124,7 @@ class Home extends Component {
                                                                 {this.state.post.comments.map(comment => {
                                                                     temp++
                                                                     return <div key={temp}>
-                                                                        <span className="bold">{this.state.post.username}:</span>
+                                                                        <span className="bold">{tempusername}:</span>
                                                                         <span>{comment}</span>
                                                                     </div>
                                                                 })}
