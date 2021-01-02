@@ -23,7 +23,17 @@ class Controller extends Component {
             likeList: [...Array(8)].map(() => Math.floor(Math.random() * 20)),
             likeDetails: new Array(8).fill(false),
             follows: Math.floor(Math.random() * 20),
-            followedBy: Math.floor(Math.random() * 20)
+            followedBy: Math.floor(Math.random() * 20),
+            commentsList: {
+                input1: ["Taken during Christmas", "2 years ago"],
+                input2: ["Such an old picture", "Lens flares?"],
+                input3: ["Sweetest thing on the planet!", "Ruby"],
+                input4: ["Taken 1 year ago", "Also taken during Christmas time"],
+                input5: ["Rocky", "This fellow is a survivor"],
+                input6: ["Yes Christmas time again", "and I like taking pictures of lights"],
+                input7: ["Credits to Matty for the picture", "Taken at the Yelagiri Peak"],
+                input8: ["Taken on my birthday", "Last year"]
+            }
         }
     }
 
@@ -79,6 +89,12 @@ class Controller extends Component {
         this.setState({usernameSet: true})
     }
 
+    addComments = (num, comment) => {
+        let temp = this.state.commentsList
+        temp[Object.keys(temp)[num]].push(comment)
+        this.setState({commentsList: temp})
+    }
+
     render() {
         let postDetails = []
 
@@ -90,8 +106,8 @@ class Controller extends Component {
             <Router>
                 <div>
                     <Route exact path='/'><Login accessToken={this.state.accessToken} /></Route>
-                    <Route exact path='/home'><Home likeDetails={this.state.likeDetails} updatelikeDetails={this.updatelikeDetails} showFilteredPosts={this.state.showFilteredPosts} filteredPosts={this.state.filteredPosts} posts={this.state.posts} filterCaptions={this.filterCaptions} postDetails={postDetails} likeList={this.state.likeList} /></Route>
-                    <Route exact path='/profile'><Profile likeDetails={this.state.likeDetails} updatelikeDetails={this.updatelikeDetails} posts={this.state.posts} postDetails={postDetails} likeList={this.state.likeList} followedBy={this.state.followedBy} follows={this.state.follows} /></Route>
+                    <Route exact path='/home'><Home commentsList={this.state.commentsList} addComments={this.addComments} likeDetails={this.state.likeDetails} updatelikeDetails={this.updatelikeDetails} showFilteredPosts={this.state.showFilteredPosts} filteredPosts={this.state.filteredPosts} posts={this.state.posts} filterCaptions={this.filterCaptions} postDetails={postDetails} likeList={this.state.likeList} /></Route>
+                    <Route exact path='/profile'><Profile commentsList={this.state.commentsList} addComments={this.addComments} likeDetails={this.state.likeDetails} updatelikeDetails={this.updatelikeDetails} posts={this.state.posts} postDetails={postDetails} likeList={this.state.likeList} followedBy={this.state.followedBy} follows={this.state.follows} /></Route>
                 </div>
             </Router>
         )

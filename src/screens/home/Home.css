@@ -16,7 +16,7 @@
     justify-content: space-between;
 }
 .cardStyle {
-    width: 45%;
+    width: 600px;
     display: inline-block;
     flex-direction: column;
     margin: 20px;
@@ -62,4 +62,8 @@
 .comments {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.addedCommentsSection {
+    height: 100px;
+    overflow-y: auto;
 }

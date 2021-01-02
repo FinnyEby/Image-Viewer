@@ -19,10 +19,10 @@ import Favorite from '@material-ui/icons/Favorite';
 
 class Profile extends Component {
 
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
-            counter: "",
+            counter: 0,
             likeCounter: "",
             username: "",
             modalSrc: "",
@@ -34,13 +34,9 @@ class Profile extends Component {
             newName: "",
             updatedNameRequired: "dispNone",
             comment: "",
-            tempComment: "",
-            comments: [],
-            liked: false,
-            post: {
-                comments: [],
-                comment: ""
-            }
+            tempComment: props.commentsList,
+            comments: ["", "", "", "", "", "", "", ""],
+            liked: false
         }
     }
 
@@ -86,21 +82,19 @@ class Profile extends Component {
         this.props.updatelikeDetails(this.state.counter)
     }
 
-    commentChangeHandler = (e) => {
-        let tempComment = this.state.post
-        tempComment.comment = e.target.value
-        this.setState({ tempComment })
+    commentChangeHandler = (pos, e) => {
+        let temp = this.state.comments
+        temp[pos] = e.target.value
+        this.setState({comments : temp})
     }
 
-    addCommentHandler = () => {
-        if (this.state.post.comment.trim() !== "") {
-            let temp = this.state.post.comments
-            temp.push(this.state.post.comment)
-            this.setState(temp)
-            let tempComment = this.state.post
-            tempComment.comment = ""
-            this.setState({ tempComment })
+    addComment = (pos) => {
+        if (this.state.comments[pos].trim() !== "") {
+            this.props.addComments(pos, this.state.comments[pos])
         }
+        let temp = this.state.comments
+        temp[pos] = ""
+        this.setState({comments: temp})
     }
 
     render() {
@@ -125,7 +119,7 @@ class Profile extends Component {
                         <div className="outer">
                             <div className="inner">
                                 <div>
-                                    <img className="profilePhoto" src={img} alt="profile" onClick={this.openPostModel.bind(this, "Temporary Test Post", img, "testUser", Math.floor(Math.random() * 20), false, 0 )} />
+                                    <img className="profilePhoto" src={img} alt="profile" /*onClick={this.openPostModel.bind(this, "Temporary Test Post", img, "testUser", Math.floor(Math.random() * 20), false, 2 )}*/ />
                                 </div>
                                 <div className="accountDetails">
                                     <div>
@@ -229,14 +223,16 @@ class Profile extends Component {
                                                 <div className="commentSection">
                                                     <div>
                                                         <div id="comments" className="comments">
-                                                            <div>
-                                                                {this.state.post.comments.map(comment => {
-                                                                    temp++
-                                                                    return <div key={temp}>
-                                                                        <span className="bold">{this.state.username}:</span>
-                                                                        <span>{comment}</span>
-                                                                    </div>
-                                                                })}
+                                                            <div className="addedCommentsSection">
+                                                                    {
+                                                                        this.props.commentsList[Object.keys(this.props.commentsList)[this.state.counter]].map(comment => {
+                                                                            temp++
+                                                                            return <div key={temp}>
+                                                                            <span className="bold">{this.state.username}:</span>
+                                                                            <span>{comment}</span>
+                                                                            </div>
+                                                                        })
+                                                                    }
                                                             </div>
                                                         </div>
                                                         <div className="rightBottomSection">
@@ -248,10 +244,10 @@ class Profile extends Component {
                                                             </div>
                                                             <div className="addCommentInProfilePage">
                                                                 <FormControl className="commentInput" >
-                                                                    <InputLabel htmlFor="commentTextBox">Add a comment</InputLabel>
-                                                                    <Input id={"commentTextBox" + 1} type="text" value={this.state.post.comment} onChange={this.commentChangeHandler} />
+                                                                    <InputLabel htmlFor={"input"+counter}>Add a comment</InputLabel>
+                                                                    <Input id={"input"+counter} type="text"  value={this.state.comments[this.state.counter]} onChange={this.commentChangeHandler.bind(this, this.state.counter)} />
                                                                 </FormControl>
-                                                                <Button className="addButton" variant="contained" color="primary" onClick={this.addCommentHandler}>
+                                                                <Button className="addButton" variant="contained" color="primary" onClick={this.addComment.bind(this, this.state.counter)}>
                                                                     ADD
                                                                 </Button>
                                                             </div>

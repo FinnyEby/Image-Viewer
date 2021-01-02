@@ -19,6 +19,8 @@ class Home extends Component {
         super();
         this.state = {
             liked: false,
+            comment: "",
+            comments: ["", "", "", "", "", "", "", ""],
             post: {
                 comments: [],
                 comment: ""
@@ -27,27 +29,22 @@ class Home extends Component {
     }
 
     likeClickhandler = (id) => {
-        //let tempPost = this.state.post;
-        //this.state.post.liked ? tempPost.liked = false : tempPost.liked = true
-        //this.setState(tempPost)
         this.props.updatelikeDetails(id)
     }
 
-    commentChangeHandler = (e) => {
-        let tempComment = this.state.post
-        tempComment.comment = e.target.value
-        this.setState({ tempComment })
+    commentChangeHandler = (pos, e) => {
+        let temp = this.state.comments
+        temp[pos] = e.target.value
+        this.setState({comments : temp})
     }
 
-    addCommentHandler = () => {
-        if(this.state.post.comment.trim() !== "") {
-            let temp = this.state.post.comments
-            temp.push(this.state.post.comment)
-            this.setState(temp)
-            let tempComment = this.state.post
-            tempComment.comment = ""
-            this.setState({ tempComment })
+    addComment = (pos) => {
+        if (this.state.comments[pos].trim() !== "") {
+            this.props.addComments(pos, this.state.comments[pos])
         }
+        let temp = this.state.comments
+        temp[pos] = ""
+        this.setState({comments: temp})
     }
 
     render() {
@@ -65,6 +62,8 @@ class Home extends Component {
         let tempSec
         let likeNumber
         let counter = 0
+        let commentsValue = 0
+        let commentsList = this.props.commentsList
 
         let displayPosts
 
@@ -81,7 +80,7 @@ class Home extends Component {
                                     likeNumber = this.props.likeList[counter]
                                     counter++
                                     this.props.postDetails.forEach(thispost => {
-                                        if(thispost.id === post.id) {
+                                        if (thispost.id === post.id) {
                                             tempusername = thispost.username
                                             tempSrc = thispost.media_url
                                             tempTimeStamp = new Date(thispost.timestamp)
@@ -99,12 +98,12 @@ class Home extends Component {
                                                 <Avatar className="avatar" src={img} sizes="small" />
                                             }
                                                 title={tempusername}
-                                                subheader={tempDate+"/"+tempMonth+"/"+tempYear+" "+tempHour+":"+tempMin+":"+tempSec} />
+                                                subheader={tempDate + "/" + tempMonth + "/" + tempYear + " " + tempHour + ":" + tempMin + ":" + tempSec} />
                                         </div>
                                         <div className="cardContent">
                                             <CardContent>
                                                 <div className="imgSection">
-                                                    <img className="image" src={tempSrc} alt={post.caption}/>
+                                                    <img className="image" src={tempSrc} alt={post.caption} />
                                                 </div>
                                                 < hr />
                                                 <div className="postDetails">
@@ -113,33 +112,37 @@ class Home extends Component {
                                                 </div>
                                                 <div>
                                                     {
-                                                        this.props.likeDetails[counter-1] ? <div className="likeSection"><Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler.bind(this, counter-1)} /><span>{likeNumber+1} likes</span></div>  :
-                                                        <div className="likeSection"><FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler.bind(this, counter-1)} /><span>{likeNumber} likes</span></div> 
+                                                        this.props.likeDetails[counter - 1] ? <div className="likeSection"><Favorite id={2} style={{ color: "red" }} className="likeButton" onClick={this.likeClickhandler.bind(this, counter - 1)} /><span>{likeNumber + 1} likes</span></div> :
+                                                            <div className="likeSection"><FavoriteBorderIcon id={2} className="likeButton" onClick={this.likeClickhandler.bind(this, counter - 1)} /><span>{likeNumber} likes</span></div>
                                                     }
                                                 </div>
                                                 <div className="commentSection">
-                                                    <div>
-                                                        <div id="comments" className="comments">
-                                                            <div>
-                                                                {this.state.post.comments.map(comment => {
-                                                                    temp++
-                                                                    return <div key={temp}>
-                                                                        <span className="bold">{tempusername}:</span>
-                                                                        <span>{comment}</span>
-                                                                    </div>
-                                                                })}
+                                                    { 
+                                                        <div {...commentsValue++}>
+                                                            <div id="comments" className="comments">
+                                                                <div className="addedCommentsSection">
+                                                                    {
+                                                                        this.props.commentsList[Object.keys(commentsList)[commentsValue-1]].map(comment => {
+                                                                            temp++
+                                                                            return <div key={post.id + temp}>
+                                                                            <span className="bold">{tempusername}:</span>
+                                                                            <span>{comment}</span>
+                                                                            </div>
+                                                                        })
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            <div className="addComment">
+                                                                <FormControl className="commentInput" >
+                                                                    <InputLabel htmlFor={"input"+commentsValue}>Add a comment</InputLabel>
+                                                                    <Input id={"input"+commentsValue} type="text" value={this.state.comments[commentsValue-1]} onChange={this.commentChangeHandler.bind(this, commentsValue-1)} />
+                                                                </FormControl>
+                                                                <Button className="addButton" variant="contained" color="primary" onClick={this.addComment.bind(this, commentsValue-1)}>
+                                                                    ADD
+                                                                </Button>
                                                             </div>
                                                         </div>
-                                                        <div className="addComment">
-                                                            <FormControl className="commentInput" >
-                                                                <InputLabel htmlFor="commentTextBox">Add a comment</InputLabel>
-                                                                <Input id={"commentTextBox"+post.id} type="text" value={this.state.post.comment} onChange={this.commentChangeHandler} />
-                                                            </FormControl>
-                                                            <Button className="addButton" variant="contained" color="primary" onClick={this.addCommentHandler}>
-                                                                ADD
-                                                            </Button>
-                                                        </div>
-                                                    </div>
+                                                    }
                                                 </div>
                                             </CardContent>
                                         </div>

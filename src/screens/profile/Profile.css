@@ -112,3 +112,7 @@
     justify-content: baseline;
     margin-bottom: 30px;
 }
+.addedCommentsSection {
+    max-height: 280px;
+    overflow-y: auto;
+}
