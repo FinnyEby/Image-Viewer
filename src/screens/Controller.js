@@ -80,19 +80,19 @@ class Controller extends Component {
     updatelikeDetails = (id) => {
         let temp = this.state.likeDetails
         temp[id] ? temp[id] = false : temp[id] = true
-        this.setState({likeDetails: temp})
-        this.setState({usernameSet: true})
+        this.setState({ likeDetails: temp })
+        this.setState({ usernameSet: true })
     }
 
     setUsername = (name) => {
-        this.setState({username: name})
-        this.setState({usernameSet: true})
+        this.setState({ username: name })
+        this.setState({ usernameSet: true })
     }
 
     addComments = (num, comment) => {
         let temp = this.state.commentsList
         temp[Object.keys(temp)[num]].push(comment)
-        this.setState({commentsList: temp})
+        this.setState({ commentsList: temp })
     }
 
     render() {

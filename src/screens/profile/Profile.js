@@ -85,7 +85,7 @@ class Profile extends Component {
     commentChangeHandler = (pos, e) => {
         let temp = this.state.comments
         temp[pos] = e.target.value
-        this.setState({comments : temp})
+        this.setState({ comments: temp })
     }
 
     addComment = (pos) => {
@@ -94,7 +94,7 @@ class Profile extends Component {
         }
         let temp = this.state.comments
         temp[pos] = ""
-        this.setState({comments: temp})
+        this.setState({ comments: temp })
     }
 
     render() {
@@ -107,7 +107,7 @@ class Profile extends Component {
         let likeStatus
         let profileUsername
 
-        if(this.props.postDetails.length > 0) {
+        if (this.props.postDetails.length > 0) {
             profileUsername = this.props.postDetails[0].username
         }
 
@@ -224,15 +224,15 @@ class Profile extends Component {
                                                     <div>
                                                         <div id="comments" className="comments">
                                                             <div className="addedCommentsSection">
-                                                                    {
-                                                                        this.props.commentsList[Object.keys(this.props.commentsList)[this.state.counter]].map(comment => {
-                                                                            temp++
-                                                                            return <div key={temp}>
+                                                                {
+                                                                    this.props.commentsList[Object.keys(this.props.commentsList)[this.state.counter]].map(comment => {
+                                                                        temp++
+                                                                        return <div key={temp}>
                                                                             <span className="bold">{this.state.username}:</span>
                                                                             <span>{comment}</span>
-                                                                            </div>
-                                                                        })
-                                                                    }
+                                                                        </div>
+                                                                    })
+                                                                }
                                                             </div>
                                                         </div>
                                                         <div className="rightBottomSection">
@@ -244,8 +244,8 @@ class Profile extends Component {
                                                             </div>
                                                             <div className="addCommentInProfilePage">
                                                                 <FormControl className="commentInput" >
-                                                                    <InputLabel htmlFor={"input"+counter}>Add a comment</InputLabel>
-                                                                    <Input id={"input"+counter} type="text"  value={this.state.comments[this.state.counter]} onChange={this.commentChangeHandler.bind(this, this.state.counter)} />
+                                                                    <InputLabel htmlFor={"input" + counter}>Add a comment</InputLabel>
+                                                                    <Input id={"input" + counter} type="text" value={this.state.comments[this.state.counter]} onChange={this.commentChangeHandler.bind(this, this.state.counter)} />
                                                                 </FormControl>
                                                                 <Button className="addButton" variant="contained" color="primary" onClick={this.addComment.bind(this, this.state.counter)}>
                                                                     ADD
