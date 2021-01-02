@@ -35,7 +35,7 @@ class Home extends Component {
     commentChangeHandler = (pos, e) => {
         let temp = this.state.comments
         temp[pos] = e.target.value
-        this.setState({comments : temp})
+        this.setState({ comments: temp })
     }
 
     addComment = (pos) => {
@@ -44,7 +44,7 @@ class Home extends Component {
         }
         let temp = this.state.comments
         temp[pos] = ""
-        this.setState({comments: temp})
+        this.setState({ comments: temp })
     }
 
     render() {
@@ -117,16 +117,16 @@ class Home extends Component {
                                                     }
                                                 </div>
                                                 <div className="commentSection">
-                                                    { 
+                                                    {
                                                         <div {...commentsValue++}>
                                                             <div id="comments" className="comments">
                                                                 <div className="addedCommentsSection">
                                                                     {
-                                                                        this.props.commentsList[Object.keys(commentsList)[commentsValue-1]].map(comment => {
+                                                                        this.props.commentsList[Object.keys(commentsList)[commentsValue - 1]].map(comment => {
                                                                             temp++
                                                                             return <div key={post.id + temp}>
-                                                                            <span className="bold">{tempusername}:</span>
-                                                                            <span>{comment}</span>
+                                                                                <span className="bold">{tempusername}:</span>
+                                                                                <span>{comment}</span>
                                                                             </div>
                                                                         })
                                                                     }
@@ -134,10 +134,10 @@ class Home extends Component {
                                                             </div>
                                                             <div className="addComment">
                                                                 <FormControl className="commentInput" >
-                                                                    <InputLabel htmlFor={"input"+commentsValue}>Add a comment</InputLabel>
-                                                                    <Input id={"input"+commentsValue} type="text" value={this.state.comments[commentsValue-1]} onChange={this.commentChangeHandler.bind(this, commentsValue-1)} />
+                                                                    <InputLabel htmlFor={"input" + commentsValue}>Add a comment</InputLabel>
+                                                                    <Input id={"input" + commentsValue} type="text" value={this.state.comments[commentsValue - 1]} onChange={this.commentChangeHandler.bind(this, commentsValue - 1)} />
                                                                 </FormControl>
-                                                                <Button className="addButton" variant="contained" color="primary" onClick={this.addComment.bind(this, commentsValue-1)}>
+                                                                <Button className="addButton" variant="contained" color="primary" onClick={this.addComment.bind(this, commentsValue - 1)}>
                                                                     ADD
                                                                 </Button>
                                                             </div>
