@@ -16,6 +16,7 @@ import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
+import { Redirect } from 'react-router-dom';
 
 class Profile extends Component {
 
@@ -99,6 +100,12 @@ class Profile extends Component {
 
     render() {
 
+        console.log(this.props.loggedIn)
+
+        if (!this.props.loggedIn) {
+            return <Redirect to="/" />
+        }
+
         let temp = 0
         let tempsrc
         let tempUsername
@@ -113,7 +120,9 @@ class Profile extends Component {
 
         return (
             <div>
-                <Header displayUserProfileIcon={true} />
+                <Header displayUserProfileIcon={true}
+                    setLoggedInState={this.props.setLoggedInState}
+                />
                 <div className="profile">
                     <div className="profileContainer">
                         <div className="outer">

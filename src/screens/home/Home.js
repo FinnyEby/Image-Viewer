@@ -13,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Redirect } from 'react-router-dom';
 
 class Home extends Component {
     constructor() {
@@ -20,11 +21,7 @@ class Home extends Component {
         this.state = {
             liked: false,
             comment: "",
-            comments: ["", "", "", "", "", "", "", ""],
-            post: {
-                comments: [],
-                comment: ""
-            }
+            comments: ["", "", "", "", "", "", "", ""]
         }
     }
 
@@ -49,6 +46,12 @@ class Home extends Component {
 
     render() {
 
+        console.log(this.props.loggedIn)
+
+        if (!this.props.loggedIn) {
+            return <Redirect to="/" />
+        }
+
         let temp = 0
 
         let tempusername = ""
@@ -71,7 +74,11 @@ class Home extends Component {
 
         return (
             <div className="outerContainer">
-                <Header dispalySearchBar={true} displayUserProfileIcon={true} filterCaptions={this.props.filterCaptions} />
+                <Header dispalySearchBar={true}
+                    displayUserProfileIcon={true}
+                    filterCaptions={this.props.filterCaptions}
+                    setLoggedInState={this.props.setLoggedInState}
+                />
                 <div className="home">
                     <div className="homeMain">
                         <div className="cardContainer">

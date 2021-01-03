@@ -14,6 +14,7 @@ class Controller extends Component {
                 url2: "?fields=id,media_type,media_url,username,timestamp&access_token="
             },
             accessToken: "IGQVJWajJFZA0ZAJQ0xXZADVjRmp2cnA5UElxTkdKY2I2d21yWWtUdGFoNkRiaGk4ckZApS0UxdEkxeHBFeklrMkZAhTjA4ZAVhhYlJaVUVFSjlBTjBpYXhzM0pQZAGs1ZAmVxQzFyUmduYUtBMXlwd1dkbWhfSAZDZD",
+            loggedIn: false,
             username: "",
             usernameSet: false,
             posts: [],
@@ -95,9 +96,13 @@ class Controller extends Component {
         this.setState({ commentsList: temp })
     }
 
-    render() {
-        let postDetails = []
+    setLoggedInState = (status) => {
+        this.setState({ loggedIn: status })
+    }
 
+    render() {
+
+        let postDetails = []
         this.state.posts.forEach(post => {
             postDetails = this.getPostDetailsById(post.id)
         })
@@ -105,9 +110,36 @@ class Controller extends Component {
         return (
             <Router>
                 <div>
-                    <Route exact path='/'><Login accessToken={this.state.accessToken} /></Route>
-                    <Route exact path='/home'><Home commentsList={this.state.commentsList} addComments={this.addComments} likeDetails={this.state.likeDetails} updatelikeDetails={this.updatelikeDetails} showFilteredPosts={this.state.showFilteredPosts} filteredPosts={this.state.filteredPosts} posts={this.state.posts} filterCaptions={this.filterCaptions} postDetails={postDetails} likeList={this.state.likeList} /></Route>
-                    <Route exact path='/profile'><Profile commentsList={this.state.commentsList} addComments={this.addComments} likeDetails={this.state.likeDetails} updatelikeDetails={this.updatelikeDetails} posts={this.state.posts} postDetails={postDetails} likeList={this.state.likeList} followedBy={this.state.followedBy} follows={this.state.follows} /></Route>
+                    <Route exact path='/'>
+                        <Login accessToken={this.state.accessToken} setLoggedInState={this.setLoggedInState} />
+                    </Route>
+                    <Route exact path={'/home'}>
+                        <Home loggedIn={this.state.loggedIn}
+                            setLoggedInState={this.setLoggedInState}
+                            commentsList={this.state.commentsList}
+                            addComments={this.addComments}
+                            likeDetails={this.state.likeDetails}
+                            updatelikeDetails={this.updatelikeDetails}
+                            showFilteredPosts={this.state.showFilteredPosts}
+                            filteredPosts={this.state.filteredPosts}
+                            posts={this.state.posts}
+                            filterCaptions={this.filterCaptions}
+                            postDetails={postDetails}
+                            likeList={this.state.likeList} />
+                    </Route>
+                    <Route exact path={'/profile'}>
+                        <Profile loggedIn={this.state.loggedIn}
+                            setLoggedInState={this.setLoggedInState}
+                            commentsList={this.state.commentsList}
+                            addComments={this.addComments}
+                            likeDetails={this.state.likeDetails}
+                            updatelikeDetails={this.updatelikeDetails}
+                            posts={this.state.posts}
+                            postDetails={postDetails}
+                            likeList={this.state.likeList}
+                            followedBy={this.state.followedBy}
+                            follows={this.state.follows} />
+                    </Route>
                 </div>
             </Router>
         )
