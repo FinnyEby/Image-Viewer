@@ -14,7 +14,6 @@ class Controller extends Component {
                 url2: "?fields=id,media_type,media_url,username,timestamp&access_token="
             },
             accessToken: "IGQVJWajJFZA0ZAJQ0xXZADVjRmp2cnA5UElxTkdKY2I2d21yWWtUdGFoNkRiaGk4ckZApS0UxdEkxeHBFeklrMkZAhTjA4ZAVhhYlJaVUVFSjlBTjBpYXhzM0pQZAGs1ZAmVxQzFyUmduYUtBMXlwd1dkbWhfSAZDZD",
-            loggedIn: false,
             username: "",
             usernameSet: false,
             posts: [],
@@ -96,10 +95,6 @@ class Controller extends Component {
         this.setState({ commentsList: temp })
     }
 
-    setLoggedInState = (status) => {
-        this.setState({ loggedIn: status })
-    }
-
     render() {
 
         let postDetails = []
@@ -111,11 +106,10 @@ class Controller extends Component {
             <Router>
                 <div>
                     <Route exact path='/'>
-                        <Login accessToken={this.state.accessToken} setLoggedInState={this.setLoggedInState} />
+                        <Login accessToken={this.state.accessToken} />
                     </Route>
                     <Route exact path={'/home'}>
                         <Home loggedIn={this.state.loggedIn}
-                            setLoggedInState={this.setLoggedInState}
                             commentsList={this.state.commentsList}
                             addComments={this.addComments}
                             likeDetails={this.state.likeDetails}
@@ -129,7 +123,6 @@ class Controller extends Component {
                     </Route>
                     <Route exact path={'/profile'}>
                         <Profile loggedIn={this.state.loggedIn}
-                            setLoggedInState={this.setLoggedInState}
                             commentsList={this.state.commentsList}
                             addComments={this.addComments}
                             likeDetails={this.state.likeDetails}

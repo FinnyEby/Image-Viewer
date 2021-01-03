@@ -43,8 +43,6 @@ class Login extends Component {
             (this.state.username !== this.state.expectedUsername || this.state.password !== this.state.expectedPassword) ?
                 this.setState({ userInfoIncorrect: "dispBlock" }) : (sessionStorage.setItem("access-token", this.state.accessToken))
         }
-        (this.state.username === this.state.expectedUsername && this.state.password === this.state.expectedPassword) ?
-            this.props.setLoggedInState(true) : this.props.setLoggedInState(false)
     }
 
     loginPassHandler = () => {
@@ -56,7 +54,6 @@ class Login extends Component {
     }
 
     render() {
-        sessionStorage.removeItem("access-token")
         return (
             <div>
                 <Header />

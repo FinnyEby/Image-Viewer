@@ -23,7 +23,6 @@ const Header = (props) => {
 
     const logOutHandler = () => {
         sessionStorage.removeItem("access-token")
-        props.setLoggedInState(false)
     }
 
     const searchItems = (e) => {

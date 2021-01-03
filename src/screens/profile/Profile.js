@@ -22,6 +22,11 @@ class Profile extends Component {
 
     constructor(props) {
         super();
+        const accessToken = sessionStorage.getItem("access-token")
+        let loggedIn = true
+        if(accessToken === null) {
+            loggedIn = false
+        }
         this.state = {
             counter: 0,
             likeCounter: "",
@@ -37,7 +42,8 @@ class Profile extends Component {
             comment: "",
             tempComment: props.commentsList,
             comments: ["", "", "", "", "", "", "", ""],
-            liked: false
+            liked: false,
+            loggedIn
         }
     }
 
@@ -100,9 +106,7 @@ class Profile extends Component {
 
     render() {
 
-        console.log(this.props.loggedIn)
-
-        if (!this.props.loggedIn) {
+        if (!this.state.loggedIn) {
             return <Redirect to="/" />
         }
 
@@ -120,9 +124,7 @@ class Profile extends Component {
 
         return (
             <div>
-                <Header displayUserProfileIcon={true}
-                    setLoggedInState={this.props.setLoggedInState}
-                />
+                <Header displayUserProfileIcon={true} />
                 <div className="profile">
                     <div className="profileContainer">
                         <div className="outer">

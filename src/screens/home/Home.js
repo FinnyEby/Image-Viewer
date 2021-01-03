@@ -18,10 +18,16 @@ import { Redirect } from 'react-router-dom';
 class Home extends Component {
     constructor() {
         super();
+        const accessToken = sessionStorage.getItem("access-token")
+        let loggedIn = true
+        if(accessToken === null) {
+            loggedIn = false
+        }
         this.state = {
             liked: false,
             comment: "",
-            comments: ["", "", "", "", "", "", "", ""]
+            comments: ["", "", "", "", "", "", "", ""],
+            loggedIn
         }
     }
 
@@ -46,9 +52,7 @@ class Home extends Component {
 
     render() {
 
-        console.log(this.props.loggedIn)
-
-        if (!this.props.loggedIn) {
+        if (!this.state.loggedIn) {
             return <Redirect to="/" />
         }
 
@@ -77,7 +81,6 @@ class Home extends Component {
                 <Header dispalySearchBar={true}
                     displayUserProfileIcon={true}
                     filterCaptions={this.props.filterCaptions}
-                    setLoggedInState={this.props.setLoggedInState}
                 />
                 <div className="home">
                     <div className="homeMain">
