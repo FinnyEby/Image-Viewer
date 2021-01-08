@@ -16,8 +16,8 @@ class Login extends Component {
     constructor() {
         super();
         this.state = {
-            expectedUsername: "upgrad",
-            expectedPassword: "upgrad",
+            expectedUsername: "demo",
+            expectedPassword: "demo",
             username: "",
             password: "",
             usernameRequired: "dispNone",

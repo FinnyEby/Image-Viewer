@@ -1,9 +1,11 @@
 .profile {
     width: 100%;
     min-width: 1080px;
+    padding-top: 64px;
 }
 .profileContainer {
     padding: 15px;
+    padding-top: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;

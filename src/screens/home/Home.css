@@ -1,6 +1,9 @@
 .outerContainer {
     width: 100%;
 }
+.home {
+    padding-top: 64px;
+}
 .homeMain {
     padding: 10px;
     margin-bottom: 20px;

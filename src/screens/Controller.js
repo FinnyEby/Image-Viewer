@@ -49,7 +49,6 @@ class Controller extends Component {
         xhr.open("GET", this.state.baseUrl + this.state.accessToken);
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.send(data);
-        this.setState({ allPosts: this.state.posts })
     }
 
     getPostDetailsById = (id) => {
