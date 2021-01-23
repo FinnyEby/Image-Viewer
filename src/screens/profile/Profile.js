@@ -230,7 +230,14 @@ class Profile extends Component {
                                                 </div>
                                                 <hr />
                                                 <Typography variant="h5">{this.state.postCaption}</Typography>
-                                                <div className="tags">#Tag1 #Tag2 #Tag3</div>
+                                                <div className="tags">
+                                                    {
+                                                        this.props.tagsList[Object.keys(this.props.tagsList)[this.state.counter]].map(tag => {
+                                                            temp++
+                                                            return <span key={"tag"+temp}>{tag}&nbsp;</span>
+                                                        })
+                                                    }
+                                                </div>
                                                 <div className="commentSection">
                                                     <div>
                                                         <div id="comments" className="comments">

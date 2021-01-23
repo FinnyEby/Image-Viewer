@@ -70,7 +70,9 @@ class Home extends Component {
         let likeNumber
         let counter = 0
         let commentsValue = 0
+        let tagValue = 0
         let commentsList = this.props.commentsList
+        let tagsList = this.props.tagsList
 
         let displayPosts
 
@@ -118,7 +120,14 @@ class Home extends Component {
                                                 < hr />
                                                 <div className="postDetails">
                                                     <div className="caption"><Typography variant="h5">{post.caption}</Typography></div>
-                                                    <div className="tags">#Tag1 #Tag2 #Tag3</div>
+                                                    <div className="tags" {...tagValue++}>
+                                                        {
+                                                            this.props.tagsList[Object.keys(tagsList)[tagValue - 1]].map(tag => {
+                                                                temp++
+                                                                return <span key={"tag"+temp}>{tag}&nbsp;</span>
+                                                            })
+                                                        }
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     {

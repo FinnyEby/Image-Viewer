@@ -22,8 +22,7 @@ class Login extends Component {
             password: "",
             usernameRequired: "dispNone",
             passwordRequired: "dispNone",
-            userInfoIncorrect: "dispNone",
-            accessToken: "IGQVJWajJFZA0ZAJQ0xXZADVjRmp2cnA5UElxTkdKY2I2d21yWWtUdGFoNkRiaGk4ckZApS0UxdEkxeHBFeklrMkZAhTjA4ZAVhhYlJaVUVFSjlBTjBpYXhzM0pQZAGs1ZAmVxQzFyUmduYUtBMXlwd1dkbWhfSAZDZD",
+            userInfoIncorrect: "dispNone"
         }
     }
 
@@ -41,7 +40,7 @@ class Login extends Component {
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" })
         if (this.state.username && this.state.password) {
             (this.state.username !== this.state.expectedUsername || this.state.password !== this.state.expectedPassword) ?
-                this.setState({ userInfoIncorrect: "dispBlock" }) : (sessionStorage.setItem("access-token", this.state.accessToken))
+                this.setState({ userInfoIncorrect: "dispBlock" }) : (sessionStorage.setItem("access-token", this.props.accessToken))
         }
     }
 

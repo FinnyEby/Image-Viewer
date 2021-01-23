@@ -13,6 +13,7 @@ class Controller extends Component {
                 url1: "https://graph.instagram.com/",
                 url2: "?fields=id,media_type,media_url,username,timestamp&access_token="
             },
+            /* Please do not modify the access token */
             accessToken: "IGQVJWajJFZA0ZAJQ0xXZADVjRmp2cnA5UElxTkdKY2I2d21yWWtUdGFoNkRiaGk4ckZApS0UxdEkxeHBFeklrMkZAhTjA4ZAVhhYlJaVUVFSjlBTjBpYXhzM0pQZAGs1ZAmVxQzFyUmduYUtBMXlwd1dkbWhfSAZDZD",
             username: "",
             usernameSet: false,
@@ -33,6 +34,16 @@ class Controller extends Component {
                 input6: ["Yes Christmas time again", "and I like taking pictures of lights"],
                 input7: ["Credits to Matty for the picture", "Taken at the Yelagiri Peak"],
                 input8: ["Taken on my birthday", "Last year"]
+            },
+            tagsList: {
+                input1: ["#Christmas", "#Candles"],
+                input2: ["#Lights", "#LensFlares"],
+                input3: ["#Lab", "#Ruby"],
+                input4: ["#Christmas", "#Candles"],
+                input5: ["#Rocky", "#Survivor"],
+                input6: ["#Christmas", "#Lights"],
+                input7: ["#Trek", "#Yelagiri"],
+                input8: ["#Birthday", "#2019"]
             }
         }
     }
@@ -109,6 +120,7 @@ class Controller extends Component {
                     </Route>
                     <Route exact path={'/home'}>
                         <Home loggedIn={this.state.loggedIn}
+                            tagsList={this.state.tagsList}
                             commentsList={this.state.commentsList}
                             addComments={this.addComments}
                             likeDetails={this.state.likeDetails}
@@ -122,6 +134,7 @@ class Controller extends Component {
                     </Route>
                     <Route exact path={'/profile'}>
                         <Profile loggedIn={this.state.loggedIn}
+                            tagsList={this.state.tagsList}
                             commentsList={this.state.commentsList}
                             addComments={this.addComments}
                             likeDetails={this.state.likeDetails}
